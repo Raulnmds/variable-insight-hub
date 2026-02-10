@@ -76,9 +76,9 @@ export function JobTable({ jobs, data, filters, onSelectJob }: JobTableProps) {
                 <TableHead className="text-xs font-semibold">Cargo</TableHead>
                 <TableHead className="text-xs font-semibold">Família</TableHead>
                 <TableHead className="text-xs font-semibold">Nível</TableHead>
-                {!isManager && <TableHead className="text-xs font-semibold text-right">P50 Emp.</TableHead>}
-                {!isManager && <TableHead className="text-xs font-semibold text-right">P50 Mkt.</TableHead>}
-                <TableHead className="text-xs font-semibold text-right">Índice</TableHead>
+                {!isManager && <TableHead className="text-xs font-semibold text-right"><IndicatorTooltip tooltipKey="p50Empresa">P50 Emp.</IndicatorTooltip></TableHead>}
+                {!isManager && <TableHead className="text-xs font-semibold text-right"><IndicatorTooltip tooltipKey="p50Mercado">P50 Mkt.</IndicatorTooltip></TableHead>}
+                <TableHead className="text-xs font-semibold text-right"><IndicatorTooltip tooltipKey="indice">Índice</IndicatorTooltip></TableHead>
                 <TableHead className="text-xs font-semibold text-right cursor-pointer" onClick={() => setSortAsc(!sortAsc)}>
                   <span className="inline-flex items-center gap-1">
                     Δ% P50 <ArrowUpDown className="h-3 w-3" />
