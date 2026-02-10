@@ -38,6 +38,15 @@ All colors MUST be HSL.
 
     --radius: 0.5rem;
 
+    --positive: 160 65% 40%;
+    --positive-foreground: 0 0% 100%;
+    --negative: 0 70% 58%;
+    --negative-foreground: 0 0% 100%;
+    --warning: 38 85% 50%;
+    --warning-foreground: 0 0% 10%;
+    --chart-company: 220 70% 55%;
+    --chart-market: 170 55% 45%;
+
     --sidebar-background: 0 0% 98%;
 
     --sidebar-foreground: 240 5.3% 26.1%;
