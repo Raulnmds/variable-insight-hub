@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Job, JobVariablePayData, Filters } from '@/types/variablePay';
 import { applyViewMode, calcDeltaPct, calcIndice, formatBRL, formatPct, formatIndice, getPositionStatus } from '@/lib/variablePayUtils';
 import { Search, ChevronLeft, ChevronRight, ArrowUpDown } from 'lucide-react';
+import { IndicatorTooltip } from './IndicatorTooltip';
 
 interface JobTableProps {
   jobs: Job[];
