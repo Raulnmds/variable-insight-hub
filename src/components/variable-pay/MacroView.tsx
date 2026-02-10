@@ -6,6 +6,7 @@ import { Filters, VariablePayType, VARIABLE_PAY_LABELS, STAT_KEYS, STAT_LABELS }
 import { getAggregatedComparisons, applyViewMode, calcDeltaPct, calcIndice, getPositionStatus, formatBRL, formatPct, exportToCSV, generateInsights } from '@/lib/variablePayUtils';
 import { TrendingUp, TrendingDown, Minus, Download, FileText, ArrowRight, DollarSign, Target, BarChart3, Award } from 'lucide-react';
 import { toast } from 'sonner';
+import { IndicatorTooltip } from './IndicatorTooltip';
 
 interface MacroViewProps {
   filters: Filters;
@@ -36,21 +37,33 @@ const typeAccentBorder: Record<VariablePayType, string> = {
   total: '',
 };
 
+const statTooltipKeys: Record<string, string> = {
+  p25: 'p25',
+  p50: 'p50',
+  p75: 'p75',
+  p90: 'p90',
+  media: 'media',
+};
+
 function PositionBar({ empresa, mercado }: { empresa: number; mercado: number }) {
   const indice = mercado > 0 ? empresa / mercado : 1;
   const pct = Math.min(Math.max((indice - 0.7) / 0.6, 0), 1) * 100;
   const midpoint = ((1.0 - 0.7) / 0.6) * 100;
 
   return (
-    <div className="relative w-full h-2 bg-muted rounded-full overflow-hidden">
-      <div className="absolute top-0 h-full bg-muted-foreground/20 rounded-full" style={{ left: `${midpoint - 1}%`, width: '2%' }} />
-      <div
-        className={`absolute top-0 h-full rounded-full transition-all duration-500 ${
-          indice > 1.05 ? 'bg-positive' : indice < 0.95 ? 'bg-negative' : 'bg-warning'
-        }`}
-        style={{ width: `${pct}%` }}
-      />
-    </div>
+    <IndicatorTooltip tooltipKey="barPosicao">
+      <span className="block w-full">
+        <span className="relative block w-full h-2 bg-muted rounded-full overflow-hidden">
+          <span className="absolute top-0 h-full bg-muted-foreground/20 rounded-full" style={{ left: `${midpoint - 1}%`, width: '2%' }} />
+          <span
+            className={`absolute top-0 h-full rounded-full transition-all duration-500 ${
+              indice > 1.05 ? 'bg-positive' : indice < 0.95 ? 'bg-negative' : 'bg-warning'
+            }`}
+            style={{ width: `${pct}%` }}
+          />
+        </span>
+      </span>
+    </IndicatorTooltip>
   );
 }
 
@@ -126,13 +139,17 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
                 {/* Big number */}
                 <div className="flex items-end gap-6 flex-wrap">
                   <div>
-                    <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">P50 Empresa</p>
+                    <IndicatorTooltip tooltipKey="p50Empresa" showIcon>
+                      <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">P50 Empresa</p>
+                    </IndicatorTooltip>
                     <p className="text-4xl font-extrabold tabular-nums tracking-tight text-foreground">
                       {isManager ? '••••' : formatBRL(totalEmp.p50)}
                     </p>
                   </div>
                   <div className="pb-1">
-                    <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">P50 Mercado</p>
+                    <IndicatorTooltip tooltipKey="p50Mercado" showIcon>
+                      <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">P50 Mercado</p>
+                    </IndicatorTooltip>
                     <p className="text-2xl font-bold tabular-nums text-muted-foreground">
                       {isManager ? '••••' : formatBRL(totalMkt.p50)}
                     </p>
@@ -153,7 +170,9 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
               {/* Right: KPI cards */}
               <div className="grid grid-cols-2 gap-4 lg:w-[340px]">
                 <div className="rounded-xl bg-card border p-4 text-center">
-                  <p className="text-[11px] text-muted-foreground uppercase tracking-wider mb-1">Δ%</p>
+                  <IndicatorTooltip tooltipKey="deltaPct" showIcon>
+                    <p className="text-[11px] text-muted-foreground uppercase tracking-wider mb-1">Δ%</p>
+                  </IndicatorTooltip>
                   <p className={`text-2xl font-bold tabular-nums ${
                     totalDeltaPct > 5 ? 'text-positive' : totalDeltaPct < -5 ? 'text-negative' : 'text-warning'
                   }`}>
@@ -161,11 +180,15 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
                   </p>
                 </div>
                 <div className="rounded-xl bg-card border p-4 text-center">
-                  <p className="text-[11px] text-muted-foreground uppercase tracking-wider mb-1">Índice</p>
+                  <IndicatorTooltip tooltipKey="indice" showIcon>
+                    <p className="text-[11px] text-muted-foreground uppercase tracking-wider mb-1">Índice</p>
+                  </IndicatorTooltip>
                   <p className="text-2xl font-bold tabular-nums text-foreground">{totalIndice.toFixed(2)}</p>
                 </div>
                 <div className="rounded-xl bg-card border p-4 text-center">
-                  <p className="text-[11px] text-muted-foreground uppercase tracking-wider mb-1">Posição</p>
+                  <IndicatorTooltip tooltipKey="posicao" showIcon>
+                    <p className="text-[11px] text-muted-foreground uppercase tracking-wider mb-1">Posição</p>
+                  </IndicatorTooltip>
                   <Badge variant="outline" className={`text-xs mt-0.5 ${
                     totalStatus === 'acima' ? 'bg-positive/10 text-positive border-positive/20' :
                     totalStatus === 'abaixo' ? 'bg-negative/10 text-negative border-negative/20' :
@@ -175,7 +198,9 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
                   </Badge>
                 </div>
                 <div className="rounded-xl bg-card border p-4 text-center">
-                  <p className="text-[11px] text-muted-foreground uppercase tracking-wider mb-1">Média Emp.</p>
+                  <IndicatorTooltip tooltipKey="mediaEmpresa" showIcon>
+                    <p className="text-[11px] text-muted-foreground uppercase tracking-wider mb-1">Média Emp.</p>
+                  </IndicatorTooltip>
                   <p className="text-lg font-bold tabular-nums text-foreground">
                     {isManager ? '••••' : formatBRL(totalEmp.media)}
                   </p>
@@ -193,7 +218,9 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
                   const color = pct > 5 ? 'text-positive' : pct < -5 ? 'text-negative' : 'text-warning';
                   return (
                     <div key={key} className="text-center">
-                      <p className="text-[11px] text-muted-foreground uppercase tracking-wider">{STAT_LABELS[key]}</p>
+                      <IndicatorTooltip tooltipKey={statTooltipKeys[key]} showIcon>
+                        <p className="text-[11px] text-muted-foreground uppercase tracking-wider">{STAT_LABELS[key]}</p>
+                      </IndicatorTooltip>
                       {!isManager && (
                         <p className="text-sm font-semibold tabular-nums mt-1">{formatBRL(emp)}</p>
                       )}
@@ -242,19 +269,23 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
                       </div>
                       <h4 className="font-semibold text-sm">{VARIABLE_PAY_LABELS[comp.tipo]}</h4>
                     </div>
-                    <Badge variant="outline" className={`text-[10px] ${
-                      status === 'acima' ? 'bg-positive/10 text-positive border-positive/20' :
-                      status === 'abaixo' ? 'bg-negative/10 text-negative border-negative/20' :
-                      'bg-warning/10 text-warning border-warning/20'
-                    }`}>
-                      {status === 'acima' ? '↑' : status === 'abaixo' ? '↓' : '→'}
-                    </Badge>
+                    <IndicatorTooltip tooltipKey="posicao">
+                      <Badge variant="outline" className={`text-[10px] ${
+                        status === 'acima' ? 'bg-positive/10 text-positive border-positive/20' :
+                        status === 'abaixo' ? 'bg-negative/10 text-negative border-negative/20' :
+                        'bg-warning/10 text-warning border-warning/20'
+                      }`}>
+                        {status === 'acima' ? '↑' : status === 'abaixo' ? '↓' : '→'}
+                      </Badge>
+                    </IndicatorTooltip>
                   </div>
 
                   {/* Main metric */}
                   {!isManager && (
                     <div className="mb-3">
-                      <p className="text-xl font-bold tabular-nums">{formatBRL(emp.p50)}</p>
+                      <IndicatorTooltip tooltipKey="p50">
+                        <p className="text-xl font-bold tabular-nums">{formatBRL(emp.p50)}</p>
+                      </IndicatorTooltip>
                       <p className="text-xs text-muted-foreground tabular-nums">vs {formatBRL(mkt.p50)} mercado</p>
                     </div>
                   )}
@@ -265,13 +296,17 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
                   {/* Bottom metrics */}
                   <div className="flex items-center justify-between mt-3 pt-3 border-t border-border/30">
                     <div>
-                      <p className="text-[10px] text-muted-foreground uppercase">Δ%</p>
+                      <IndicatorTooltip tooltipKey="deltaPct">
+                        <p className="text-[10px] text-muted-foreground uppercase">Δ%</p>
+                      </IndicatorTooltip>
                       <p className={`text-sm font-bold tabular-nums ${
                         pct > 5 ? 'text-positive' : pct < -5 ? 'text-negative' : 'text-warning'
                       }`}>{formatPct(pct)}</p>
                     </div>
                     <div className="text-right">
-                      <p className="text-[10px] text-muted-foreground uppercase">Índice</p>
+                      <IndicatorTooltip tooltipKey="indice">
+                        <p className="text-[10px] text-muted-foreground uppercase">Índice</p>
+                      </IndicatorTooltip>
                       <p className="text-sm font-bold tabular-nums">{indice.toFixed(2)}</p>
                     </div>
                     <ArrowRight className="h-4 w-4 text-muted-foreground/50 group-hover:text-primary transition-colors" />
