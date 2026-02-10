@@ -80,11 +80,13 @@ export function JobTable({ jobs, data, filters, onSelectJob }: JobTableProps) {
                 {!isManager && <TableHead className="text-xs font-semibold text-right"><IndicatorTooltip tooltipKey="p50Mercado">P50 Mkt.</IndicatorTooltip></TableHead>}
                 <TableHead className="text-xs font-semibold text-right"><IndicatorTooltip tooltipKey="indice">Índice</IndicatorTooltip></TableHead>
                 <TableHead className="text-xs font-semibold text-right cursor-pointer" onClick={() => setSortAsc(!sortAsc)}>
-                  <span className="inline-flex items-center gap-1">
-                    Δ% P50 <ArrowUpDown className="h-3 w-3" />
-                  </span>
+                  <IndicatorTooltip tooltipKey="deltaPct">
+                    <span className="inline-flex items-center gap-1">
+                      Δ% P50 <ArrowUpDown className="h-3 w-3" />
+                    </span>
+                  </IndicatorTooltip>
                 </TableHead>
-                <TableHead className="text-xs font-semibold text-center">Posição</TableHead>
+                <TableHead className="text-xs font-semibold text-center"><IndicatorTooltip tooltipKey="posicao">Posição</IndicatorTooltip></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
