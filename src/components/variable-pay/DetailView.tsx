@@ -7,8 +7,9 @@ import { jobs } from '@/data/variablePayMockData';
 import { ComparisonChart } from './ComparisonChart';
 import { JobTable } from './JobTable';
 import { JobDetailDrawer } from './JobDetailDrawer';
-import { ArrowLeft, Download, TrendingUp, TrendingDown, Minus, AlertTriangle } from 'lucide-react';
+import { ArrowLeft, Download, AlertTriangle } from 'lucide-react';
 import { toast } from 'sonner';
+import { IndicatorTooltip } from './IndicatorTooltip';
 
 interface DetailViewProps {
   type: VariablePayType;
@@ -40,7 +41,6 @@ export function DetailView({ type, filters, onBack }: DetailViewProps) {
 
   const deltaPct = calcDeltaPct(aggEmpresa.p50, aggMercado.p50);
   const indice = calcIndice(aggEmpresa.p50, aggMercado.p50);
-  const status = getPositionStatus(aggEmpresa.p50, aggMercado.p50);
   const isManager = filters.userRole === 'manager';
 
   const selectedJob = selectedJobId ? jobs.find(j => j.cargo_id === selectedJobId) || null : null;
@@ -53,11 +53,8 @@ export function DetailView({ type, filters, onBack }: DetailViewProps) {
       const emp = applyViewMode(d.empresa, filters.viewMode);
       const mkt = applyViewMode(d.mercado, filters.viewMode);
       return [
-        job?.nome || '',
-        job?.familia || '',
-        job?.nivel || '',
-        String(emp.p50),
-        String(mkt.p50),
+        job?.nome || '', job?.familia || '', job?.nivel || '',
+        String(emp.p50), String(mkt.p50),
         calcIndice(emp.p50, mkt.p50).toFixed(2),
         `${calcDeltaPct(emp.p50, mkt.p50).toFixed(1)}%`,
       ];
@@ -84,10 +81,10 @@ export function DetailView({ type, filters, onBack }: DetailViewProps) {
   }
 
   const miniCards = [
-    { label: 'P50 Empresa', value: isManager ? '••••' : formatBRL(aggEmpresa.p50), color: 'text-chart-company' },
-    { label: 'P50 Mercado', value: isManager ? '••••' : formatBRL(aggMercado.p50), color: 'text-chart-market' },
-    { label: 'Δ%', value: formatPct(deltaPct), color: deltaPct > 5 ? 'text-positive' : deltaPct < -5 ? 'text-negative' : 'text-warning' },
-    { label: 'Índice', value: formatIndice(indice), color: '' },
+    { label: 'P50 Empresa', tooltipKey: 'p50Empresa', value: isManager ? '••••' : formatBRL(aggEmpresa.p50), color: 'text-chart-company' },
+    { label: 'P50 Mercado', tooltipKey: 'p50Mercado', value: isManager ? '••••' : formatBRL(aggMercado.p50), color: 'text-chart-market' },
+    { label: 'Δ%', tooltipKey: 'deltaPct', value: formatPct(deltaPct), color: deltaPct > 5 ? 'text-positive' : deltaPct < -5 ? 'text-negative' : 'text-warning' },
+    { label: 'Índice', tooltipKey: 'indice', value: formatIndice(indice), color: '' },
   ];
 
   return (
@@ -113,7 +110,9 @@ export function DetailView({ type, filters, onBack }: DetailViewProps) {
         {miniCards.map(mc => (
           <Card key={mc.label}>
             <CardContent className="py-4 px-4">
-              <p className="text-xs text-muted-foreground mb-1">{mc.label}</p>
+              <IndicatorTooltip tooltipKey={mc.tooltipKey} showIcon>
+                <p className="text-xs text-muted-foreground mb-1">{mc.label}</p>
+              </IndicatorTooltip>
               <p className={`text-xl font-bold tabular-nums ${mc.color}`}>{mc.value}</p>
             </CardContent>
           </Card>
@@ -131,12 +130,7 @@ export function DetailView({ type, filters, onBack }: DetailViewProps) {
       {/* Table */}
       <div>
         <h3 className="text-sm font-medium mb-3">Detalhamento por Cargo</h3>
-        <JobTable
-          jobs={filteredJobs}
-          data={data}
-          filters={filters}
-          onSelectJob={setSelectedJobId}
-        />
+        <JobTable jobs={filteredJobs} data={data} filters={filters} onSelectJob={setSelectedJobId} />
       </div>
 
       {/* Drawer */}
