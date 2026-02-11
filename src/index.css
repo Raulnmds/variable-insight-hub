@@ -108,6 +108,12 @@ All colors MUST be HSL.
     --chart-company: 220 70% 60%;
     --chart-market: 170 55% 50%;
 
+    --gradient-start: 270 55% 35%;
+    --gradient-mid: 260 65% 45%;
+    --gradient-end: 240 60% 50%;
+    --hero-bg: 250 30% 8%;
+    --hero-foreground: 0 0% 100%;
+
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
