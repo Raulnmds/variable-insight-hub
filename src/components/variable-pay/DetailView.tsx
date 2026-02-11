@@ -7,7 +7,7 @@ import { jobs } from '@/data/variablePayMockData';
 import { ComparisonChart } from './ComparisonChart';
 import { JobTable } from './JobTable';
 import { JobDetailDrawer } from './JobDetailDrawer';
-import { ArrowLeft, Download, AlertTriangle } from 'lucide-react';
+import { ArrowLeft, Download, AlertTriangle, DollarSign, Target, BarChart3, Award, Sparkles, TrendingUp, TrendingDown, Minus } from 'lucide-react';
 import { toast } from 'sonner';
 import { IndicatorTooltip } from './IndicatorTooltip';
 
@@ -16,6 +16,22 @@ interface DetailViewProps {
   filters: Filters;
   onBack: () => void;
 }
+
+const typeIcons: Record<VariablePayType, typeof DollarSign> = {
+  bonus: DollarSign,
+  pplr: Target,
+  comissao: BarChart3,
+  premio: Award,
+  total: Sparkles,
+};
+
+const typeGradientStyles: Record<VariablePayType, string> = {
+  bonus: 'from-[hsl(270,60%,42%)] via-[hsl(260,70%,50%)] to-[hsl(240,65%,55%)]',
+  pplr: 'from-[hsl(280,55%,40%)] via-[hsl(270,65%,48%)] to-[hsl(250,60%,52%)]',
+  comissao: 'from-[hsl(260,50%,38%)] via-[hsl(250,60%,46%)] to-[hsl(230,55%,50%)]',
+  premio: 'from-[hsl(290,55%,42%)] via-[hsl(280,65%,50%)] to-[hsl(260,60%,55%)]',
+  total: 'from-[hsl(250,25%,12%)] via-[hsl(260,40%,18%)] to-[hsl(270,50%,25%)]',
+};
 
 function aggregateFromList(list: { p25: number; p50: number; p75: number; p90: number; media: number }[]) {
   if (!list.length) return { p25: 0, p50: 0, p75: 0, p90: 0, media: 0 };
@@ -41,6 +57,7 @@ export function DetailView({ type, filters, onBack }: DetailViewProps) {
 
   const deltaPct = calcDeltaPct(aggEmpresa.p50, aggMercado.p50);
   const indice = calcIndice(aggEmpresa.p50, aggMercado.p50);
+  const status = getPositionStatus(aggEmpresa.p50, aggMercado.p50);
   const isManager = filters.userRole === 'manager';
 
   const selectedJob = selectedJobId ? jobs.find(j => j.cargo_id === selectedJobId) || null : null;
@@ -63,6 +80,8 @@ export function DetailView({ type, filters, onBack }: DetailViewProps) {
     toast.success('Exportação realizada');
   };
 
+  const Icon = typeIcons[type];
+
   if (data.length === 0) {
     return (
       <div className="space-y-4">
@@ -80,47 +99,73 @@ export function DetailView({ type, filters, onBack }: DetailViewProps) {
     );
   }
 
-  const miniCards = [
-    { label: 'P50 Empresa', tooltipKey: 'p50Empresa', value: isManager ? '••••' : formatBRL(aggEmpresa.p50), color: 'text-chart-company' },
-    { label: 'P50 Mercado', tooltipKey: 'p50Mercado', value: isManager ? '••••' : formatBRL(aggMercado.p50), color: 'text-chart-market' },
-    { label: 'Δ%', tooltipKey: 'deltaPct', value: formatPct(deltaPct), color: deltaPct > 5 ? 'text-positive' : deltaPct < -5 ? 'text-negative' : 'text-warning' },
-    { label: 'Índice', tooltipKey: 'indice', value: formatIndice(indice), color: '' },
-  ];
-
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <Button variant="ghost" size="sm" className="gap-1.5" onClick={onBack}>
-            <ArrowLeft className="h-4 w-4" /> Voltar
-          </Button>
-          <div>
-            <h2 className="text-lg font-semibold">{VARIABLE_PAY_LABELS[type]}</h2>
-            <p className="text-sm text-muted-foreground">Análise detalhada por cargo</p>
+      {/* Hero header */}
+      <div className={`rounded-2xl bg-gradient-to-r ${typeGradientStyles[type]} px-8 py-8 relative overflow-hidden`}>
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-2 right-12 w-28 h-28 rounded-full bg-white/20 blur-2xl" />
+        </div>
+        <div className="relative z-10">
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-3">
+              <Button variant="ghost" size="sm" className="gap-1.5 text-white/70 hover:text-white hover:bg-white/10" onClick={onBack}>
+                <ArrowLeft className="h-4 w-4" /> Voltar
+              </Button>
+              <div className="h-10 w-10 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/10">
+                <Icon className="h-5 w-5 text-white" />
+              </div>
+              <div>
+                <h2 className="text-xl font-bold text-white">{VARIABLE_PAY_LABELS[type]}</h2>
+                <p className="text-sm text-white/50">Análise detalhada por cargo</p>
+              </div>
+            </div>
+            <Button variant="outline" size="sm" className="gap-1.5 bg-white/10 border-white/20 text-white hover:bg-white/20" onClick={handleExport}>
+              <Download className="h-4 w-4" /> Exportar
+            </Button>
+          </div>
+
+          {/* KPI row */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div className="rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 p-4">
+              <IndicatorTooltip tooltipKey="p50Empresa" showIcon>
+                <p className="text-[10px] text-white/50 uppercase tracking-wider mb-1">P50 Empresa</p>
+              </IndicatorTooltip>
+              <p className="text-xl font-bold tabular-nums text-white">{isManager ? '••••' : formatBRL(aggEmpresa.p50)}</p>
+            </div>
+            <div className="rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 p-4">
+              <IndicatorTooltip tooltipKey="p50Mercado" showIcon>
+                <p className="text-[10px] text-white/50 uppercase tracking-wider mb-1">P50 Mercado</p>
+              </IndicatorTooltip>
+              <p className="text-xl font-bold tabular-nums text-white/80">{isManager ? '••••' : formatBRL(aggMercado.p50)}</p>
+            </div>
+            <div className="rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 p-4">
+              <IndicatorTooltip tooltipKey="deltaPct" showIcon>
+                <p className="text-[10px] text-white/50 uppercase tracking-wider mb-1">Δ%</p>
+              </IndicatorTooltip>
+              <p className={`text-xl font-bold tabular-nums ${
+                deltaPct > 5 ? 'text-emerald-400' : deltaPct < -5 ? 'text-rose-400' : 'text-amber-400'
+              }`}>{formatPct(deltaPct)}</p>
+            </div>
+            <div className="rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 p-4">
+              <IndicatorTooltip tooltipKey="indice" showIcon>
+                <p className="text-[10px] text-white/50 uppercase tracking-wider mb-1">Índice</p>
+              </IndicatorTooltip>
+              <div className="flex items-center gap-2">
+                <p className="text-xl font-bold tabular-nums text-white">{formatIndice(indice)}</p>
+                <span className={`flex items-center text-xs ${
+                  status === 'acima' ? 'text-emerald-400' : status === 'abaixo' ? 'text-rose-400' : 'text-amber-400'
+                }`}>
+                  {status === 'acima' ? <TrendingUp className="h-3.5 w-3.5" /> : status === 'abaixo' ? <TrendingDown className="h-3.5 w-3.5" /> : <Minus className="h-3.5 w-3.5" />}
+                </span>
+              </div>
+            </div>
           </div>
         </div>
-        <Button variant="outline" size="sm" className="gap-1.5" onClick={handleExport}>
-          <Download className="h-4 w-4" /> Exportar CSV
-        </Button>
-      </div>
-
-      {/* Mini-cards */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        {miniCards.map(mc => (
-          <Card key={mc.label}>
-            <CardContent className="py-4 px-4">
-              <IndicatorTooltip tooltipKey={mc.tooltipKey} showIcon>
-                <p className="text-xs text-muted-foreground mb-1">{mc.label}</p>
-              </IndicatorTooltip>
-              <p className={`text-xl font-bold tabular-nums ${mc.color}`}>{mc.value}</p>
-            </CardContent>
-          </Card>
-        ))}
       </div>
 
       {/* Chart */}
-      <Card>
+      <Card className="rounded-2xl">
         <CardContent className="pt-6">
           <h3 className="text-sm font-medium mb-4">Comparativo por Estatística — Empresa × Mercado</h3>
           <ComparisonChart empresa={aggEmpresa} mercado={aggMercado} hideValues={isManager} />

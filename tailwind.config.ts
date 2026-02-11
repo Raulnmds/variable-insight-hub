@@ -61,6 +61,8 @@ export default {
         },
         "chart-company": "hsl(var(--chart-company))",
         "chart-market": "hsl(var(--chart-market))",
+        "hero-bg": "hsl(var(--hero-bg))",
+        "hero-foreground": "hsl(var(--hero-foreground))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
