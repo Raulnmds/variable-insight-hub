@@ -28,22 +28,22 @@ export function JobDetailDrawer({ open, onClose, job, data, filters }: JobDetail
 
   return (
     <Sheet open={open} onOpenChange={v => !v && onClose()}>
-      <SheetContent className="w-full sm:max-w-lg overflow-y-auto">
-        <SheetHeader>
-          <SheetTitle className="text-lg">{job.nome}</SheetTitle>
-          <div className="flex flex-wrap gap-2 mt-1">
-            <Badge variant="secondary" className="text-xs">{job.familia}</Badge>
-            <Badge variant="secondary" className="text-xs">{job.nivel}</Badge>
-            <Badge variant="secondary" className="text-xs">{job.area}</Badge>
-            <Badge variant="secondary" className="text-xs">{job.localidade}</Badge>
+      <SheetContent className="w-full sm:max-w-lg overflow-y-auto bg-card">
+        <SheetHeader className="pb-xmd border-b border-border">
+          <SheetTitle className="text-h3-caps text-foreground">{job.nome}</SheetTitle>
+          <div className="flex flex-wrap gap-xs mt-xs">
+            <Badge variant="secondary" className="text-small">{job.familia}</Badge>
+            <Badge variant="secondary" className="text-small">{job.nivel}</Badge>
+            <Badge variant="secondary" className="text-small">{job.area}</Badge>
+            <Badge variant="secondary" className="text-small">{job.localidade}</Badge>
           </div>
         </SheetHeader>
 
-        <div className="mt-6 space-y-6">
+        <div className="mt-xmd space-y-xmd">
           {/* Position indicator */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-sm-space">
             <IndicatorTooltip tooltipKey="posicao">
-              <Badge variant="outline" className={`text-sm py-1 px-3 ${
+              <Badge variant="outline" className={`text-label py-xs px-sm-space ${
                 status === 'acima' ? 'bg-positive/10 text-positive border-positive/20' :
                 status === 'abaixo' ? 'bg-negative/10 text-negative border-negative/20' :
                 'bg-warning/10 text-warning border-warning/20'
@@ -52,15 +52,15 @@ export function JobDetailDrawer({ open, onClose, job, data, filters }: JobDetail
               </Badge>
             </IndicatorTooltip>
             <IndicatorTooltip tooltipKey="indice">
-              <span className="text-sm text-muted-foreground">
-                Índice: <span className="font-mono font-medium">{calcIndice(emp.p50, mkt.p50).toFixed(2)}</span>
+              <span className="text-label text-muted-foreground">
+                Índice: <span className="font-mono text-label-bold">{calcIndice(emp.p50, mkt.p50).toFixed(2)}</span>
               </span>
             </IndicatorTooltip>
           </div>
 
           {/* Chart */}
           <div>
-            <h4 className="text-sm font-medium mb-3">Comparativo Empresa × Mercado</h4>
+            <h4 className="text-h3-caps text-muted-foreground mb-sm-space">Comparativo Empresa × Mercado</h4>
             <ComparisonChart empresa={emp} mercado={mkt} hideValues={isManager} />
           </div>
 
@@ -68,77 +68,79 @@ export function JobDetailDrawer({ open, onClose, job, data, filters }: JobDetail
 
           {/* Stats table */}
           <div>
-            <h4 className="text-sm font-medium mb-3">Estatísticas Detalhadas</h4>
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b">
-                  <th className="text-left py-2 text-xs font-medium text-muted-foreground">Stat</th>
-                  {!isManager && <th className="text-right py-2 text-xs font-medium">Empresa</th>}
-                  {!isManager && <th className="text-right py-2 text-xs font-medium">Mercado</th>}
-                  {!isManager && (
-                    <th className="text-right py-2 text-xs font-medium">
-                      <IndicatorTooltip tooltipKey="delta">Δ</IndicatorTooltip>
+            <h4 className="text-h3-caps text-muted-foreground mb-sm-space">Estatísticas Detalhadas</h4>
+            <div className="bg-card rounded-lg shadow-dp02 overflow-hidden">
+              <table className="w-full text-label">
+                <thead>
+                  <tr className="bg-grayscale-5 border-b border-border">
+                    <th className="text-left py-sm-space px-default-space text-label-bold-caps text-muted-foreground">Stat</th>
+                    {!isManager && <th className="text-right py-sm-space px-default-space text-label-bold-caps text-muted-foreground">Empresa</th>}
+                    {!isManager && <th className="text-right py-sm-space px-default-space text-label-bold-caps text-muted-foreground">Mercado</th>}
+                    {!isManager && (
+                      <th className="text-right py-sm-space px-default-space text-label-bold-caps text-muted-foreground">
+                        <IndicatorTooltip tooltipKey="delta">Δ</IndicatorTooltip>
+                      </th>
+                    )}
+                    <th className="text-right py-sm-space px-default-space text-label-bold-caps text-muted-foreground">
+                      <IndicatorTooltip tooltipKey="deltaPct">Δ%</IndicatorTooltip>
                     </th>
-                  )}
-                  <th className="text-right py-2 text-xs font-medium">
-                    <IndicatorTooltip tooltipKey="deltaPct">Δ%</IndicatorTooltip>
-                  </th>
-                  <th className="text-right py-2 text-xs font-medium">
-                    <IndicatorTooltip tooltipKey="indice">Índice</IndicatorTooltip>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {STAT_KEYS.map(key => {
-                  const delta = calcDelta(emp[key], mkt[key]);
-                  const pct = calcDeltaPct(emp[key], mkt[key]);
-                  const idx = calcIndice(emp[key], mkt[key]);
-                  const color = delta > 0 ? 'text-positive' : delta < 0 ? 'text-negative' : '';
-                  return (
-                    <tr key={key} className="border-b border-border/50">
-                      <td className="py-2 font-medium">
-                        <IndicatorTooltip tooltipKey={statTooltipKeys[key]}>{STAT_LABELS[key]}</IndicatorTooltip>
-                      </td>
-                      {!isManager && <td className="text-right py-2 tabular-nums">{formatBRL(emp[key])}</td>}
-                      {!isManager && <td className="text-right py-2 tabular-nums">{formatBRL(mkt[key])}</td>}
-                      {!isManager && <td className={`text-right py-2 tabular-nums ${color}`}>{formatBRL(delta)}</td>}
-                      <td className={`text-right py-2 tabular-nums ${color}`}>{formatPct(pct)}</td>
-                      <td className="text-right py-2 tabular-nums">{idx.toFixed(2)}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+                    <th className="text-right py-sm-space px-default-space text-label-bold-caps text-muted-foreground">
+                      <IndicatorTooltip tooltipKey="indice">Índice</IndicatorTooltip>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {STAT_KEYS.map(key => {
+                    const delta = calcDelta(emp[key], mkt[key]);
+                    const pct = calcDeltaPct(emp[key], mkt[key]);
+                    const idx = calcIndice(emp[key], mkt[key]);
+                    const color = delta > 0 ? 'text-positive' : delta < 0 ? 'text-negative' : '';
+                    return (
+                      <tr key={key} className="border-b border-border hover:bg-grayscale-5 transition-colors">
+                        <td className="py-sm-space px-default-space text-label-bold">
+                          <IndicatorTooltip tooltipKey={statTooltipKeys[key]}>{STAT_LABELS[key]}</IndicatorTooltip>
+                        </td>
+                        {!isManager && <td className="text-right py-sm-space px-default-space tabular-nums">{formatBRL(emp[key])}</td>}
+                        {!isManager && <td className="text-right py-sm-space px-default-space tabular-nums">{formatBRL(mkt[key])}</td>}
+                        {!isManager && <td className={`text-right py-sm-space px-default-space tabular-nums ${color}`}>{formatBRL(delta)}</td>}
+                        <td className={`text-right py-sm-space px-default-space tabular-nums ${color}`}>{formatPct(pct)}</td>
+                        <td className="text-right py-sm-space px-default-space tabular-nums">{idx.toFixed(2)}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
           </div>
 
           <Separator />
 
           {/* Data quality notes */}
-          <div className="space-y-2 text-xs text-muted-foreground">
-            <h4 className="font-medium text-sm text-foreground">Notas de Qualidade</h4>
-            <p>
+          <div className="space-y-xs">
+            <h4 className="text-h3-caps text-muted-foreground">Notas de Qualidade</h4>
+            <p className="text-small text-muted-foreground">
               <IndicatorTooltip tooltipKey="nAmostra" showIcon>
                 <span>📊 Amostra mercado:</span>
               </IndicatorTooltip>{' '}
-              <span className="font-medium">{data.n_amostra} empresas</span>
+              <span className="text-small-bold">{data.n_amostra} empresas</span>
             </p>
-            <p>
+            <p className="text-small text-muted-foreground">
               <IndicatorTooltip tooltipKey="nColaboradores" showIcon>
                 <span>👥 Colaboradores empresa:</span>
               </IndicatorTooltip>{' '}
-              <span className="font-medium">{data.n_colaboradores}</span>
+              <span className="text-small-bold">{data.n_colaboradores}</span>
             </p>
-            <p>
+            <p className="text-small text-muted-foreground">
               <IndicatorTooltip tooltipKey="dataBase" showIcon>
                 <span>📅 Data base:</span>
               </IndicatorTooltip>{' '}
-              <span className="font-medium">{data.data_base}</span>
+              <span className="text-small-bold">{data.data_base}</span>
             </p>
-            <p>
+            <p className="text-small text-muted-foreground">
               <IndicatorTooltip tooltipKey="fonte" showIcon>
                 <span>📋 Fonte:</span>
               </IndicatorTooltip>{' '}
-              <span className="font-medium">{data.fonte}</span>
+              <span className="text-small-bold">{data.fonte}</span>
             </p>
           </div>
         </div>

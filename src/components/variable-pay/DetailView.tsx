@@ -25,14 +25,6 @@ const typeIcons: Record<VariablePayType, typeof DollarSign> = {
   total: Sparkles,
 };
 
-const typeGradientStyles: Record<VariablePayType, string> = {
-  bonus: 'from-[hsl(270,60%,42%)] via-[hsl(260,70%,50%)] to-[hsl(240,65%,55%)]',
-  pplr: 'from-[hsl(280,55%,40%)] via-[hsl(270,65%,48%)] to-[hsl(250,60%,52%)]',
-  comissao: 'from-[hsl(260,50%,38%)] via-[hsl(250,60%,46%)] to-[hsl(230,55%,50%)]',
-  premio: 'from-[hsl(290,55%,42%)] via-[hsl(280,65%,50%)] to-[hsl(260,60%,55%)]',
-  total: 'from-[hsl(250,25%,12%)] via-[hsl(260,40%,18%)] to-[hsl(270,50%,25%)]',
-};
-
 function aggregateFromList(list: { p25: number; p50: number; p75: number; p90: number; media: number }[]) {
   if (!list.length) return { p25: 0, p50: 0, p75: 0, p90: 0, media: 0 };
   const avg = (arr: number[]) => Math.round(arr.reduce((a, b) => a + b, 0) / arr.length);
@@ -84,15 +76,15 @@ export function DetailView({ type, filters, onBack }: DetailViewProps) {
 
   if (data.length === 0) {
     return (
-      <div className="space-y-4">
+      <div className="space-y-default-space">
         <Button variant="ghost" size="sm" className="gap-1.5" onClick={onBack}>
           <ArrowLeft className="h-4 w-4" /> Voltar
         </Button>
-        <Card>
-          <CardContent className="py-16 text-center">
-            <AlertTriangle className="h-10 w-10 text-warning mx-auto mb-3" />
-            <h3 className="text-lg font-medium mb-1">Dados insuficientes para este filtro</h3>
-            <p className="text-sm text-muted-foreground">Tente relaxar os filtros aplicados para obter resultados.</p>
+        <Card className="rounded-huge shadow-dp02 border-0">
+          <CardContent className="py-xxbig text-center">
+            <AlertTriangle className="h-10 w-10 text-warning mx-auto mb-sm-space" />
+            <h3 className="text-h3-bold mb-xxs">Dados insuficientes para este filtro</h3>
+            <p className="text-label text-muted-foreground">Tente relaxar os filtros aplicados para obter resultados.</p>
           </CardContent>
         </Card>
       </div>
@@ -100,61 +92,58 @@ export function DetailView({ type, filters, onBack }: DetailViewProps) {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-xmd">
       {/* Hero header */}
-      <div className={`rounded-2xl bg-gradient-to-r ${typeGradientStyles[type]} px-8 py-8 relative overflow-hidden`}>
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-2 right-12 w-28 h-28 rounded-full bg-white/20 blur-2xl" />
-        </div>
-        <div className="relative z-10">
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-3">
-              <Button variant="ghost" size="sm" className="gap-1.5 text-white/70 hover:text-white hover:bg-white/10" onClick={onBack}>
+      <Card className="rounded-huge overflow-hidden shadow-dp02 border-0">
+        <div className="bg-primary px-xmd py-xmd">
+          <div className="flex items-center justify-between mb-xmd">
+            <div className="flex items-center gap-sm-space">
+              <Button variant="ghost" size="sm" className="gap-1.5 text-primary-foreground/70 hover:text-primary-foreground hover:bg-primary-foreground/10" onClick={onBack}>
                 <ArrowLeft className="h-4 w-4" /> Voltar
               </Button>
-              <div className="h-10 w-10 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/10">
-                <Icon className="h-5 w-5 text-white" />
+              <div className="h-10 w-10 rounded-lg bg-primary-foreground/15 flex items-center justify-center">
+                <Icon className="h-5 w-5 text-primary-foreground" />
               </div>
               <div>
-                <h2 className="text-xl font-bold text-white">{VARIABLE_PAY_LABELS[type]}</h2>
-                <p className="text-sm text-white/50">Análise detalhada por cargo</p>
+                <h2 className="text-h2-bold text-primary-foreground">{VARIABLE_PAY_LABELS[type]}</h2>
+                <p className="text-small text-primary-foreground/50">Análise detalhada por cargo</p>
               </div>
             </div>
-            <Button variant="outline" size="sm" className="gap-1.5 bg-white/10 border-white/20 text-white hover:bg-white/20" onClick={handleExport}>
+            <Button variant="outline" size="sm" className="gap-1.5 bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/20" onClick={handleExport}>
               <Download className="h-4 w-4" /> Exportar
             </Button>
           </div>
 
           {/* KPI row */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            <div className="rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 p-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-sm-space">
+            <div className="rounded-lg bg-primary-foreground/10 p-default-space">
               <IndicatorTooltip tooltipKey="p50Empresa" showIcon>
-                <p className="text-[10px] text-white/50 uppercase tracking-wider mb-1">P50 Empresa</p>
+                <p className="text-small text-primary-foreground/50 uppercase tracking-wider mb-xxs">P50 Empresa</p>
               </IndicatorTooltip>
-              <p className="text-xl font-bold tabular-nums text-white">{isManager ? '••••' : formatBRL(aggEmpresa.p50)}</p>
+              <p className="text-h2-bold tabular-nums text-primary-foreground">{isManager ? '••••' : formatBRL(aggEmpresa.p50)}</p>
             </div>
-            <div className="rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 p-4">
+            <div className="rounded-lg bg-primary-foreground/10 p-default-space">
               <IndicatorTooltip tooltipKey="p50Mercado" showIcon>
-                <p className="text-[10px] text-white/50 uppercase tracking-wider mb-1">P50 Mercado</p>
+                <p className="text-small text-primary-foreground/50 uppercase tracking-wider mb-xxs">P50 Mercado</p>
               </IndicatorTooltip>
-              <p className="text-xl font-bold tabular-nums text-white/80">{isManager ? '••••' : formatBRL(aggMercado.p50)}</p>
+              <p className="text-h2-bold tabular-nums text-primary-foreground/80">{isManager ? '••••' : formatBRL(aggMercado.p50)}</p>
             </div>
-            <div className="rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 p-4">
+            <div className="rounded-lg bg-primary-foreground/10 p-default-space">
               <IndicatorTooltip tooltipKey="deltaPct" showIcon>
-                <p className="text-[10px] text-white/50 uppercase tracking-wider mb-1">Δ%</p>
+                <p className="text-small text-primary-foreground/50 uppercase tracking-wider mb-xxs">Δ%</p>
               </IndicatorTooltip>
-              <p className={`text-xl font-bold tabular-nums ${
-                deltaPct > 5 ? 'text-emerald-400' : deltaPct < -5 ? 'text-rose-400' : 'text-amber-400'
+              <p className={`text-h2-bold tabular-nums ${
+                deltaPct > 5 ? 'text-primary-foreground' : deltaPct < -5 ? 'text-primary-foreground' : 'text-primary-foreground'
               }`}>{formatPct(deltaPct)}</p>
             </div>
-            <div className="rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 p-4">
+            <div className="rounded-lg bg-primary-foreground/10 p-default-space">
               <IndicatorTooltip tooltipKey="indice" showIcon>
-                <p className="text-[10px] text-white/50 uppercase tracking-wider mb-1">Índice</p>
+                <p className="text-small text-primary-foreground/50 uppercase tracking-wider mb-xxs">Índice</p>
               </IndicatorTooltip>
-              <div className="flex items-center gap-2">
-                <p className="text-xl font-bold tabular-nums text-white">{formatIndice(indice)}</p>
-                <span className={`flex items-center text-xs ${
-                  status === 'acima' ? 'text-emerald-400' : status === 'abaixo' ? 'text-rose-400' : 'text-amber-400'
+              <div className="flex items-center gap-xs">
+                <p className="text-h2-bold tabular-nums text-primary-foreground">{formatIndice(indice)}</p>
+                <span className={`flex items-center text-small ${
+                  status === 'acima' ? 'text-primary-foreground' : status === 'abaixo' ? 'text-primary-foreground' : 'text-primary-foreground'
                 }`}>
                   {status === 'acima' ? <TrendingUp className="h-3.5 w-3.5" /> : status === 'abaixo' ? <TrendingDown className="h-3.5 w-3.5" /> : <Minus className="h-3.5 w-3.5" />}
                 </span>
@@ -162,19 +151,19 @@ export function DetailView({ type, filters, onBack }: DetailViewProps) {
             </div>
           </div>
         </div>
-      </div>
+      </Card>
 
       {/* Chart */}
-      <Card className="rounded-2xl">
-        <CardContent className="pt-6">
-          <h3 className="text-sm font-medium mb-4">Comparativo por Estatística — Empresa × Mercado</h3>
+      <Card className="rounded-huge shadow-dp02 border-0">
+        <CardContent className="pt-xmd">
+          <h3 className="text-h3-caps text-muted-foreground mb-default-space">Comparativo por Estatística — Empresa × Mercado</h3>
           <ComparisonChart empresa={aggEmpresa} mercado={aggMercado} hideValues={isManager} />
         </CardContent>
       </Card>
 
       {/* Table */}
       <div>
-        <h3 className="text-sm font-medium mb-3">Detalhamento por Cargo</h3>
+        <h3 className="text-h3-caps text-muted-foreground mb-sm-space">Detalhamento por Cargo</h3>
         <JobTable jobs={filteredJobs} data={data} filters={filters} onSelectJob={setSelectedJobId} />
       </div>
 
