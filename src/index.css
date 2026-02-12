@@ -2,126 +2,141 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Design System Senior — All colors in HSL */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Primary */
+    --primary: 210 56% 60%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary */
+    --secondary: 200 14% 52%;
+    --secondary-foreground: 0 0% 100%;
+
+    /* Grayscale */
+    --grayscale-100: 215 28% 17%;
+    --grayscale-90: 215 25% 23%;
+    --grayscale-80: 214 18% 30%;
+    --grayscale-70: 210 10% 40%;
+    --grayscale-60: 210 6% 51%;
+    --grayscale-50: 212 8% 64%;
+    --grayscale-40: 212 12% 75%;
+    --grayscale-30: 210 10% 83%;
+    --grayscale-20: 220 13% 91%;
+    --grayscale-10: 220 14% 96%;
+    --grayscale-5: 210 20% 98%;
+    --grayscale-0: 0 0% 100%;
+
+    /* Semantic mappings */
+    --background: 220 14% 96%;
+    --foreground: 215 28% 17%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 215 28% 17%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 215 28% 17%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --muted: 210 20% 98%;
+    --muted-foreground: 210 10% 40%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --accent: 220 14% 96%;
+    --accent-foreground: 215 28% 17%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --destructive: 0 66% 56%;
+    --destructive-foreground: 0 0% 100%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --border: 220 13% 91%;
+    --input: 212 12% 75%;
+    --ring: 210 56% 60%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --radius: 4px;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
-
-    --positive: 160 65% 40%;
+    /* Feedback / Criticality */
+    --positive: 152 83% 36%;
     --positive-foreground: 0 0% 100%;
-    --negative: 0 70% 58%;
+    --negative: 0 66% 56%;
     --negative-foreground: 0 0% 100%;
-    --warning: 38 85% 50%;
-    --warning-foreground: 0 0% 10%;
-    --chart-company: 220 70% 55%;
-    --chart-market: 170 55% 45%;
+    --warning: 45 90% 61%;
+    --warning-foreground: 215 28% 17%;
+    --info: 210 52% 54%;
+    --info-foreground: 0 0% 100%;
+    --alert: 30 90% 61%;
+    --alert-foreground: 0 0% 100%;
 
-    --gradient-start: 270 60% 42%;
-    --gradient-mid: 260 70% 50%;
-    --gradient-end: 240 65% 55%;
-    --hero-bg: 250 25% 12%;
-    --hero-foreground: 0 0% 100%;
+    /* Chart */
+    --chart-company: 210 56% 60%;
+    --chart-market: 152 83% 36%;
 
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
+    /* Sidebar */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 215 28% 17%;
+    --sidebar-primary: 210 56% 60%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 14% 96%;
+    --sidebar-accent-foreground: 215 28% 17%;
     --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 210 56% 60%;
 
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Elevations */
+    --shadow-dp01: 0 1px 3px 0 rgba(0,0,0,0.06), 0 1px 2px -1px rgba(0,0,0,0.06);
+    --shadow-dp02: 0 1px 4px 0 rgba(0,0,0,0.08), 0 2px 6px -1px rgba(0,0,0,0.06);
+    --shadow-dp04: 0 4px 8px -2px rgba(0,0,0,0.10), 0 2px 4px -2px rgba(0,0,0,0.06);
+    --shadow-dp08: 0 8px 16px -4px rgba(0,0,0,0.12), 0 4px 8px -4px rgba(0,0,0,0.06);
+    --shadow-dp12: 0 12px 24px -6px rgba(0,0,0,0.14), 0 6px 12px -6px rgba(0,0,0,0.06);
+    --shadow-dp16: 0 16px 32px -8px rgba(0,0,0,0.16), 0 8px 16px -8px rgba(0,0,0,0.06);
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 215 28% 17%;
+    --foreground: 210 20% 98%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 215 25% 23%;
+    --card-foreground: 210 20% 98%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 215 25% 23%;
+    --popover-foreground: 210 20% 98%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 210 56% 60%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 200 14% 52%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 214 18% 30%;
+    --muted-foreground: 212 8% 64%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 214 18% 30%;
+    --accent-foreground: 210 20% 98%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 66% 46%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --border: 214 18% 30%;
+    --input: 214 18% 30%;
+    --ring: 210 56% 60%;
 
-    --positive: 160 65% 35%;
+    --positive: 152 83% 32%;
     --positive-foreground: 0 0% 100%;
-    --negative: 0 70% 50%;
+    --negative: 0 66% 50%;
     --negative-foreground: 0 0% 100%;
-    --warning: 38 85% 45%;
+    --warning: 45 90% 55%;
     --warning-foreground: 0 0% 100%;
-    --chart-company: 220 70% 60%;
-    --chart-market: 170 55% 50%;
+    --info: 210 52% 50%;
+    --info-foreground: 0 0% 100%;
 
-    --gradient-start: 270 55% 35%;
-    --gradient-mid: 260 65% 45%;
-    --gradient-end: 240 60% 50%;
-    --hero-bg: 250 30% 8%;
-    --hero-foreground: 0 0% 100%;
+    --chart-company: 210 56% 65%;
+    --chart-market: 152 83% 40%;
 
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-background: 215 25% 23%;
+    --sidebar-foreground: 210 20% 98%;
+    --sidebar-primary: 210 56% 60%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 214 18% 30%;
+    --sidebar-accent-foreground: 210 20% 98%;
+    --sidebar-border: 214 18% 30%;
+    --sidebar-ring: 210 56% 60%;
   }
 }
 
@@ -132,5 +147,82 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+/* Typography utility classes */
+@layer utilities {
+  .text-h1 {
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 150%;
+  }
+  .text-h2 {
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 150%;
+  }
+  .text-h2-bold {
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 150%;
+  }
+  .text-h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 150%;
+  }
+  .text-h3-bold {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 150%;
+  }
+  .text-h3-caps {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 150%;
+    text-transform: uppercase;
+  }
+  .text-label {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 150%;
+  }
+  .text-label-bold {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 150%;
+  }
+  .text-label-bold-caps {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 150%;
+    text-transform: uppercase;
+  }
+  .text-small {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 150%;
+  }
+  .text-small-bold {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 150%;
   }
 }

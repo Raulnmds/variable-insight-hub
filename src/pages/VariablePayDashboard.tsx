@@ -21,18 +21,14 @@ const VariablePayDashboard = () => {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      {/* Header */}
-      <header className="bg-gradient-to-r from-[hsl(250,25%,12%)] via-[hsl(260,40%,18%)] to-[hsl(270,50%,25%)] px-6 py-5 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-0 right-20 w-40 h-40 rounded-full bg-white/20 blur-3xl" />
-          <div className="absolute bottom-0 left-32 w-32 h-32 rounded-full bg-purple-300/20 blur-2xl" />
-        </div>
-        <div className="relative z-10 max-w-[1400px] mx-auto">
-          <nav className="flex items-center gap-1.5 text-sm text-white/50 mb-2">
-            <span className="hover:text-white/80 cursor-pointer transition-colors">Pesquisa Salarial</span>
+      {/* Header — white bg, dp01 shadow */}
+      <header className="bg-card px-xmd py-md-space shadow-dp01">
+        <div className="max-w-[1440px] mx-auto">
+          <nav className="flex items-center gap-1.5 text-small text-muted-foreground mb-2">
+            <span className="hover:text-primary cursor-pointer transition-colors">Pesquisa Salarial</span>
             <ChevronRight className="h-3.5 w-3.5" />
             <span
-              className={`transition-colors ${selectedType ? 'hover:text-white/80 cursor-pointer' : 'text-white font-medium'}`}
+              className={`transition-colors ${selectedType ? 'hover:text-primary cursor-pointer' : 'text-foreground font-bold'}`}
               onClick={() => setSelectedType(null)}
             >
               Remuneração Variável
@@ -40,15 +36,15 @@ const VariablePayDashboard = () => {
             {selectedType && (
               <>
                 <ChevronRight className="h-3.5 w-3.5" />
-                <span className="text-white font-medium">{VARIABLE_PAY_LABELS[selectedType]}</span>
+                <span className="text-foreground font-bold">{VARIABLE_PAY_LABELS[selectedType]}</span>
               </>
             )}
           </nav>
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-xl bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/10">
-              <BarChart3 className="h-5 w-5 text-white" />
+            <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
+              <BarChart3 className="h-5 w-5 text-primary" />
             </div>
-            <h1 className="text-2xl font-bold text-white tracking-tight">
+            <h1 className="text-h1 text-foreground">
               Dashboard | Remuneração Variável
             </h1>
           </div>
@@ -59,7 +55,7 @@ const VariablePayDashboard = () => {
       <FilterBar filters={filters} onFiltersChange={setFilters} />
 
       {/* Content */}
-      <main className="flex-1 p-6 max-w-[1400px] w-full mx-auto">
+      <main className="flex-1 p-xmd max-w-[1440px] w-full mx-auto">
         {selectedType ? (
           <DetailView type={selectedType} filters={filters} onBack={() => setSelectedType(null)} />
         ) : (
@@ -68,7 +64,7 @@ const VariablePayDashboard = () => {
       </main>
 
       {/* Footer */}
-      <footer className="border-t px-6 py-3 text-xs text-muted-foreground text-center">
+      <footer className="border-t bg-card px-xmd py-sm-space text-small text-muted-foreground text-center">
         Percentis: 25/50/75/90 e média · Comparação Empresa × Mercado · Referência: {filters.ano} · Valores em BRL ({filters.viewMode === 'anual' ? 'anual' : 'mensal equivalente'})
       </footer>
     </div>

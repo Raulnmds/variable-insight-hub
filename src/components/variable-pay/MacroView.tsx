@@ -21,14 +21,6 @@ const typeIcons: Record<VariablePayType, typeof DollarSign> = {
   total: Sparkles,
 };
 
-const typeGradientStyles: Record<VariablePayType, string> = {
-  bonus: 'from-[hsl(270,60%,42%)] via-[hsl(260,70%,50%)] to-[hsl(240,65%,55%)]',
-  pplr: 'from-[hsl(280,55%,40%)] via-[hsl(270,65%,48%)] to-[hsl(250,60%,52%)]',
-  comissao: 'from-[hsl(260,50%,38%)] via-[hsl(250,60%,46%)] to-[hsl(230,55%,50%)]',
-  premio: 'from-[hsl(290,55%,42%)] via-[hsl(280,65%,50%)] to-[hsl(260,60%,55%)]',
-  total: 'from-[hsl(250,25%,12%)] via-[hsl(260,40%,18%)] to-[hsl(270,50%,25%)]',
-};
-
 const typeDescriptions: Record<VariablePayType, string> = {
   bonus: 'Pagamento por performance individual e corporativa',
   pplr: 'Participação nos lucros e resultados',
@@ -54,10 +46,10 @@ function PositionBar({ empresa, mercado }: { empresa: number; mercado: number })
   return (
     <IndicatorTooltip tooltipKey="barPosicao">
       <span className="block w-full">
-        <span className="relative block w-full h-1.5 bg-white/20 rounded-full overflow-hidden">
+        <span className="relative block w-full h-1.5 bg-grayscale-20 rounded-full overflow-hidden">
           <span
             className={`absolute top-0 h-full rounded-full transition-all duration-500 ${
-              indice > 1.05 ? 'bg-emerald-400' : indice < 0.95 ? 'bg-rose-400' : 'bg-amber-400'
+              indice > 1.05 ? 'bg-positive' : indice < 0.95 ? 'bg-negative' : 'bg-warning'
             }`}
             style={{ width: `${pct}%` }}
           />
@@ -109,62 +101,56 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
   const totalStatus = getPositionStatus(totalEmp.p50, totalMkt.p50);
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-xbig">
       {/* Actions row */}
-      <div className="flex items-center justify-end gap-2">
-        <Button variant="outline" size="sm" className="gap-1.5" onClick={handleSummary}>
+      <div className="flex items-center justify-end gap-xs">
+        <Button variant="outline" size="sm" className="gap-1.5 text-label" onClick={handleSummary}>
           <FileText className="h-4 w-4" /> Gerar Resumo
         </Button>
-        <Button variant="outline" size="sm" className="gap-1.5" onClick={handleExport}>
+        <Button variant="outline" size="sm" className="gap-1.5 text-label" onClick={handleExport}>
           <Download className="h-4 w-4" /> Exportar CSV
         </Button>
       </div>
 
       {/* ===== HERO: Total Consolidado ===== */}
-      <div
-        className="rounded-2xl overflow-hidden cursor-pointer group transition-all hover:shadow-2xl hover:shadow-purple-500/10"
+      <Card
+        className="rounded-huge overflow-hidden cursor-pointer group transition-all hover:shadow-dp04 shadow-dp02 border-0"
         onClick={() => onSelectType('total')}
       >
-        {/* Gradient Banner */}
-        <div className={`bg-gradient-to-r ${typeGradientStyles.total} px-8 py-10 relative overflow-hidden`}>
-          {/* Decorative elements */}
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-4 right-8 w-32 h-32 rounded-full bg-white/10 blur-2xl" />
-            <div className="absolute bottom-2 left-16 w-24 h-24 rounded-full bg-purple-300/10 blur-xl" />
-          </div>
-
-          <div className="relative z-10 flex flex-col lg:flex-row lg:items-center gap-8">
+        {/* Header band */}
+        <div className="bg-primary px-xmd py-xmd">
+          <div className="flex flex-col lg:flex-row lg:items-center gap-xmd">
             {/* Left */}
-            <div className="flex-1 space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="h-12 w-12 rounded-xl bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/10">
-                  <Sparkles className="h-6 w-6 text-white" />
+            <div className="flex-1 space-y-default-space">
+              <div className="flex items-center gap-sm-space">
+                <div className="h-12 w-12 rounded-lg bg-primary-foreground/15 flex items-center justify-center">
+                  <Sparkles className="h-6 w-6 text-primary-foreground" />
                 </div>
                 <div>
-                  <Badge className="bg-white/15 text-white border-white/20 text-[10px] tracking-wider uppercase mb-1">
+                  <Badge className="bg-primary-foreground/15 text-primary-foreground border-primary-foreground/20 text-small tracking-wider uppercase mb-1">
                     Visão Consolidada
                   </Badge>
-                  <h2 className="text-2xl font-bold text-white tracking-tight">Total Remuneração Variável</h2>
+                  <h2 className="text-h2-bold text-primary-foreground">Total Remuneração Variável</h2>
                 </div>
               </div>
 
-              <p className="text-white/60 text-sm">Soma de Bônus + PPLR + Comissão + Prêmio</p>
+              <p className="text-small text-primary-foreground/60">Soma de Bônus + PPLR + Comissão + Prêmio</p>
 
               {/* Big numbers */}
-              <div className="flex items-end gap-8 flex-wrap">
+              <div className="flex items-end gap-xmd flex-wrap">
                 <div>
                   <IndicatorTooltip tooltipKey="p50Empresa" showIcon>
-                    <p className="text-[10px] text-white/50 uppercase tracking-widest mb-1">P50 Empresa</p>
+                    <p className="text-small text-primary-foreground/50 uppercase tracking-widest mb-xxs">P50 Empresa</p>
                   </IndicatorTooltip>
-                  <p className="text-4xl font-extrabold tabular-nums tracking-tight text-white">
+                  <p className="text-[32px] font-bold tabular-nums tracking-tight text-primary-foreground font-heading">
                     {isManager ? '••••' : formatBRL(totalEmp.p50)}
                   </p>
                 </div>
                 <div className="pb-1">
                   <IndicatorTooltip tooltipKey="p50Mercado" showIcon>
-                    <p className="text-[10px] text-white/50 uppercase tracking-widest mb-1">P50 Mercado</p>
+                    <p className="text-small text-primary-foreground/50 uppercase tracking-widest mb-xxs">P50 Mercado</p>
                   </IndicatorTooltip>
-                  <p className="text-2xl font-bold tabular-nums text-white/70">
+                  <p className="text-h2-bold tabular-nums text-primary-foreground/70">
                     {isManager ? '••••' : formatBRL(totalMkt.p50)}
                   </p>
                 </div>
@@ -172,7 +158,7 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
 
               {/* Position bar */}
               <div className="max-w-sm">
-                <div className="flex items-center justify-between text-[10px] text-white/40 mb-1.5 uppercase tracking-wider">
+                <div className="flex items-center justify-between text-small text-primary-foreground/40 mb-xxs uppercase tracking-wider">
                   <span>Abaixo</span>
                   <span>Mercado</span>
                   <span>Acima</span>
@@ -182,39 +168,39 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
             </div>
 
             {/* Right: KPI cards */}
-            <div className="grid grid-cols-2 gap-3 lg:w-[300px]">
-              <div className="rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 p-4 text-center">
+            <div className="grid grid-cols-2 gap-sm-space lg:w-[300px]">
+              <div className="rounded-lg bg-primary-foreground/10 p-default-space text-center">
                 <IndicatorTooltip tooltipKey="deltaPct" showIcon>
-                  <p className="text-[10px] text-white/50 uppercase tracking-wider mb-1">Δ%</p>
+                  <p className="text-small text-primary-foreground/50 uppercase tracking-wider mb-xxs">Δ%</p>
                 </IndicatorTooltip>
-                <p className={`text-2xl font-bold tabular-nums ${
-                  totalDeltaPct > 5 ? 'text-emerald-400' : totalDeltaPct < -5 ? 'text-rose-400' : 'text-amber-400'
+                <p className={`text-h2-bold tabular-nums ${
+                  totalDeltaPct > 5 ? 'text-positive-foreground' : totalDeltaPct < -5 ? 'text-primary-foreground' : 'text-primary-foreground'
                 }`}>
                   {formatPct(totalDeltaPct)}
                 </p>
               </div>
-              <div className="rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 p-4 text-center">
+              <div className="rounded-lg bg-primary-foreground/10 p-default-space text-center">
                 <IndicatorTooltip tooltipKey="indice" showIcon>
-                  <p className="text-[10px] text-white/50 uppercase tracking-wider mb-1">Índice</p>
+                  <p className="text-small text-primary-foreground/50 uppercase tracking-wider mb-xxs">Índice</p>
                 </IndicatorTooltip>
-                <p className="text-2xl font-bold tabular-nums text-white">{totalIndice.toFixed(2)}</p>
+                <p className="text-h2-bold tabular-nums text-primary-foreground">{totalIndice.toFixed(2)}</p>
               </div>
-              <div className="rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 p-4 text-center">
+              <div className="rounded-lg bg-primary-foreground/10 p-default-space text-center">
                 <IndicatorTooltip tooltipKey="posicao" showIcon>
-                  <p className="text-[10px] text-white/50 uppercase tracking-wider mb-1">Posição</p>
+                  <p className="text-small text-primary-foreground/50 uppercase tracking-wider mb-xxs">Posição</p>
                 </IndicatorTooltip>
-                <div className={`flex items-center justify-center gap-1.5 text-sm font-semibold ${
-                  totalStatus === 'acima' ? 'text-emerald-400' : totalStatus === 'abaixo' ? 'text-rose-400' : 'text-amber-400'
+                <div className={`flex items-center justify-center gap-xxs text-label-bold ${
+                  totalStatus === 'acima' ? 'text-primary-foreground' : totalStatus === 'abaixo' ? 'text-primary-foreground' : 'text-primary-foreground'
                 }`}>
                   <StatusIndicator status={totalStatus} />
                   {totalStatus === 'acima' ? 'Acima' : totalStatus === 'abaixo' ? 'Abaixo' : 'Alinhado'}
                 </div>
               </div>
-              <div className="rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 p-4 text-center">
+              <div className="rounded-lg bg-primary-foreground/10 p-default-space text-center">
                 <IndicatorTooltip tooltipKey="mediaEmpresa" showIcon>
-                  <p className="text-[10px] text-white/50 uppercase tracking-wider mb-1">Média Emp.</p>
+                  <p className="text-small text-primary-foreground/50 uppercase tracking-wider mb-xxs">Média Emp.</p>
                 </IndicatorTooltip>
-                <p className="text-lg font-bold tabular-nums text-white">
+                <p className="text-label-bold tabular-nums text-primary-foreground">
                   {isManager ? '••••' : formatBRL(totalEmp.media)}
                 </p>
               </div>
@@ -222,14 +208,14 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
           </div>
 
           {/* CTA */}
-          <div className="relative z-10 mt-6 flex items-center justify-end text-sm text-white/70 font-medium group-hover:text-white transition-colors">
-            Ver detalhamento completo <ArrowRight className="h-4 w-4 ml-1 transition-transform group-hover:translate-x-1" />
+          <div className="mt-default-space flex items-center justify-end text-label text-primary-foreground/70 font-medium group-hover:text-primary-foreground transition-colors">
+            Ver detalhamento completo <ArrowRight className="h-4 w-4 ml-xxs transition-transform group-hover:translate-x-1" />
           </div>
         </div>
 
-        {/* Percentiles row - light bg */}
-        <div className="bg-card border border-t-0 rounded-b-2xl px-8 py-5">
-          <div className="grid grid-cols-5 gap-4">
+        {/* Percentiles row */}
+        <CardContent className="bg-card px-xmd py-md-space">
+          <div className="grid grid-cols-5 gap-default-space">
             {STAT_KEYS.map(key => {
               const emp = totalEmp[key];
               const mkt = totalMkt[key];
@@ -238,28 +224,28 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
               return (
                 <div key={key} className="text-center">
                   <IndicatorTooltip tooltipKey={statTooltipKeys[key]} showIcon>
-                    <p className="text-[11px] text-muted-foreground uppercase tracking-wider">{STAT_LABELS[key]}</p>
+                    <p className="text-small text-muted-foreground uppercase tracking-wider">{STAT_LABELS[key]}</p>
                   </IndicatorTooltip>
                   {!isManager && (
-                    <p className="text-sm font-semibold tabular-nums mt-1">{formatBRL(emp)}</p>
+                    <p className="text-label-bold tabular-nums mt-xxs">{formatBRL(emp)}</p>
                   )}
                   {!isManager && (
-                    <p className="text-xs text-muted-foreground tabular-nums">vs {formatBRL(mkt)}</p>
+                    <p className="text-small text-muted-foreground tabular-nums">vs {formatBRL(mkt)}</p>
                   )}
-                  <p className={`text-xs font-medium tabular-nums ${color}`}>{formatPct(pct)}</p>
+                  <p className={`text-small-bold tabular-nums ${color}`}>{formatPct(pct)}</p>
                 </div>
               );
             })}
           </div>
-        </div>
-      </div>
+        </CardContent>
+      </Card>
 
       {/* ===== Individual Variable Type Cards ===== */}
       <div>
-        <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-4">
+        <h3 className="text-h3-caps text-muted-foreground mb-default-space">
           Por Componente de Remuneração
         </h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-xmd">
           {typeComps.map(comp => {
             const emp = applyViewMode(comp.empresa, filters.viewMode);
             const mkt = applyViewMode(comp.mercado, filters.viewMode);
@@ -269,63 +255,60 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
             const Icon = typeIcons[comp.tipo];
 
             return (
-              <div
+              <Card
                 key={comp.tipo}
-                className="rounded-2xl overflow-hidden cursor-pointer group transition-all hover:shadow-xl hover:shadow-purple-500/10 hover:-translate-y-1"
+                className="rounded-huge overflow-hidden cursor-pointer group transition-all hover:shadow-dp04 shadow-dp02 border-0"
                 onClick={() => onSelectType(comp.tipo)}
               >
-                {/* Gradient Banner */}
-                <div className={`bg-gradient-to-r ${typeGradientStyles[comp.tipo]} px-5 py-6 relative overflow-hidden`}>
-                  <div className="absolute inset-0 opacity-10">
-                    <div className="absolute -top-4 -right-4 w-20 h-20 rounded-full bg-white/20 blur-xl" />
-                  </div>
-                  <div className="relative z-10 flex items-center gap-3">
-                    <div className="h-10 w-10 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/10">
-                      <Icon className="h-5 w-5 text-white" />
+                {/* Header band */}
+                <div className="bg-primary px-md-space py-md-space relative overflow-hidden">
+                  <div className="flex items-center gap-sm-space">
+                    <div className="h-10 w-10 rounded-lg bg-primary-foreground/15 flex items-center justify-center">
+                      <Icon className="h-5 w-5 text-primary-foreground" />
                     </div>
                     <div>
-                      <h4 className="font-bold text-white text-sm">{VARIABLE_PAY_LABELS[comp.tipo]}</h4>
-                      <p className="text-white/50 text-[11px] mt-0.5">{typeDescriptions[comp.tipo]}</p>
+                      <h4 className="text-label-bold text-primary-foreground">{VARIABLE_PAY_LABELS[comp.tipo]}</h4>
+                      <p className="text-small text-primary-foreground/50 mt-xxs">{typeDescriptions[comp.tipo]}</p>
                     </div>
                   </div>
 
                   {/* Position bar on banner */}
-                  <div className="relative z-10 mt-4">
+                  <div className="mt-default-space">
                     <PositionBar empresa={emp.p50} mercado={mkt.p50} />
                   </div>
                 </div>
 
                 {/* Card body */}
-                <div className="bg-card border border-t-0 rounded-b-2xl px-5 py-4 space-y-3">
+                <CardContent className="bg-card px-md-space py-default-space space-y-sm-space">
                   {/* Main metric */}
                   {!isManager && (
                     <div>
                       <IndicatorTooltip tooltipKey="p50">
-                        <p className="text-xl font-bold tabular-nums text-foreground">{formatBRL(emp.p50)}</p>
+                        <p className="text-h2-bold tabular-nums text-foreground">{formatBRL(emp.p50)}</p>
                       </IndicatorTooltip>
-                      <p className="text-xs text-muted-foreground tabular-nums">vs {formatBRL(mkt.p50)} mercado</p>
+                      <p className="text-small text-muted-foreground tabular-nums">vs {formatBRL(mkt.p50)} mercado</p>
                     </div>
                   )}
 
                   {/* Bottom metrics */}
-                  <div className="flex items-center justify-between pt-3 border-t border-border/50">
+                  <div className="flex items-center justify-between pt-sm-space border-t border-border">
                     <div>
                       <IndicatorTooltip tooltipKey="deltaPct">
-                        <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Δ%</p>
+                        <p className="text-small text-muted-foreground uppercase tracking-wider">Δ%</p>
                       </IndicatorTooltip>
-                      <p className={`text-sm font-bold tabular-nums ${
+                      <p className={`text-label-bold tabular-nums ${
                         pct > 5 ? 'text-positive' : pct < -5 ? 'text-negative' : 'text-warning'
                       }`}>{formatPct(pct)}</p>
                     </div>
                     <div className="text-center">
                       <IndicatorTooltip tooltipKey="indice">
-                        <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Índice</p>
+                        <p className="text-small text-muted-foreground uppercase tracking-wider">Índice</p>
                       </IndicatorTooltip>
-                      <p className="text-sm font-bold tabular-nums text-foreground">{indice.toFixed(2)}</p>
+                      <p className="text-label-bold tabular-nums text-foreground">{indice.toFixed(2)}</p>
                     </div>
                     <div className="text-right">
                       <IndicatorTooltip tooltipKey="posicao">
-                        <div className={`flex items-center gap-1 text-xs font-semibold ${
+                        <div className={`flex items-center gap-xxs text-small-bold ${
                           status === 'acima' ? 'text-positive' : status === 'abaixo' ? 'text-negative' : 'text-warning'
                         }`}>
                           <StatusIndicator status={status} />
@@ -334,8 +317,8 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
                       </IndicatorTooltip>
                     </div>
                   </div>
-                </div>
-              </div>
+                </CardContent>
+              </Card>
             );
           })}
         </div>

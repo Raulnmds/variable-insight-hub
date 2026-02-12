@@ -54,45 +54,45 @@ export function JobTable({ jobs, data, filters, onSelectJob }: JobTableProps) {
   const paged = filtered.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
 
   return (
-    <div className="space-y-3">
-      <div className="flex items-center gap-3">
+    <div className="space-y-sm-space">
+      <div className="flex items-center gap-sm-space">
         <div className="relative flex-1 max-w-xs">
-          <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
-            placeholder="Buscar cargo, família ou área..."
+            placeholder="Digite ou busque pela lupa"
             value={search}
             onChange={e => { setSearch(e.target.value); setPage(0); }}
-            className="pl-8 h-8 text-sm"
+            className="pr-9 h-9 text-label rounded-md border-input"
           />
         </div>
-        <span className="text-xs text-muted-foreground">{filtered.length} cargos</span>
+        <span className="text-small text-muted-foreground">{filtered.length} cargos</span>
       </div>
 
-      <div className="border rounded-lg overflow-hidden">
+      <div className="bg-card rounded-lg shadow-dp02 overflow-hidden">
         <div className="overflow-x-auto">
           <Table>
             <TableHeader>
-              <TableRow className="bg-muted/50">
-                <TableHead className="text-xs font-semibold">Cargo</TableHead>
-                <TableHead className="text-xs font-semibold">Família</TableHead>
-                <TableHead className="text-xs font-semibold">Nível</TableHead>
-                {!isManager && <TableHead className="text-xs font-semibold text-right"><IndicatorTooltip tooltipKey="p50Empresa">P50 Emp.</IndicatorTooltip></TableHead>}
-                {!isManager && <TableHead className="text-xs font-semibold text-right"><IndicatorTooltip tooltipKey="p50Mercado">P50 Mkt.</IndicatorTooltip></TableHead>}
-                <TableHead className="text-xs font-semibold text-right"><IndicatorTooltip tooltipKey="indice">Índice</IndicatorTooltip></TableHead>
-                <TableHead className="text-xs font-semibold text-right cursor-pointer" onClick={() => setSortAsc(!sortAsc)}>
+              <TableRow className="bg-grayscale-5 border-b border-border">
+                <TableHead className="text-label-bold-caps text-muted-foreground py-sm-space px-default-space">Cargo</TableHead>
+                <TableHead className="text-label-bold-caps text-muted-foreground py-sm-space px-default-space">Família</TableHead>
+                <TableHead className="text-label-bold-caps text-muted-foreground py-sm-space px-default-space">Nível</TableHead>
+                {!isManager && <TableHead className="text-label-bold-caps text-muted-foreground py-sm-space px-default-space text-right"><IndicatorTooltip tooltipKey="p50Empresa">P50 Emp.</IndicatorTooltip></TableHead>}
+                {!isManager && <TableHead className="text-label-bold-caps text-muted-foreground py-sm-space px-default-space text-right"><IndicatorTooltip tooltipKey="p50Mercado">P50 Mkt.</IndicatorTooltip></TableHead>}
+                <TableHead className="text-label-bold-caps text-muted-foreground py-sm-space px-default-space text-right"><IndicatorTooltip tooltipKey="indice">Índice</IndicatorTooltip></TableHead>
+                <TableHead className="text-label-bold-caps text-muted-foreground py-sm-space px-default-space text-right cursor-pointer" onClick={() => setSortAsc(!sortAsc)}>
                   <IndicatorTooltip tooltipKey="deltaPct">
-                    <span className="inline-flex items-center gap-1">
-                      Δ% P50 <ArrowUpDown className="h-3 w-3" />
+                    <span className="inline-flex items-center gap-xxs">
+                      Δ% P50 <ArrowUpDown className="h-4 w-4 text-muted-foreground" />
                     </span>
                   </IndicatorTooltip>
                 </TableHead>
-                <TableHead className="text-xs font-semibold text-center"><IndicatorTooltip tooltipKey="posicao">Posição</IndicatorTooltip></TableHead>
+                <TableHead className="text-label-bold-caps text-muted-foreground py-sm-space px-default-space text-center"><IndicatorTooltip tooltipKey="posicao">Posição</IndicatorTooltip></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {paged.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={isManager ? 5 : 7} className="text-center py-8 text-muted-foreground">
+                  <TableCell colSpan={isManager ? 5 : 7} className="text-center py-xxbig text-label text-muted-foreground">
                     Nenhum cargo encontrado para os filtros selecionados.
                   </TableCell>
                 </TableRow>
@@ -103,20 +103,20 @@ export function JobTable({ jobs, data, filters, onSelectJob }: JobTableProps) {
                   return (
                     <TableRow
                       key={row.cargo_id}
-                      className="cursor-pointer hover:bg-muted/30 transition-colors"
+                      className="cursor-pointer hover:bg-grayscale-5 transition-colors border-b border-border"
                       onClick={() => onSelectJob(row.cargo_id)}
                     >
-                      <TableCell className="text-sm font-medium">{row.job.nome}</TableCell>
-                      <TableCell className="text-xs text-muted-foreground">{row.job.familia}</TableCell>
-                      <TableCell className="text-xs text-muted-foreground">{row.job.nivel}</TableCell>
-                      {!isManager && <TableCell className="text-sm text-right tabular-nums">{formatBRL(row.emp.p50)}</TableCell>}
-                      {!isManager && <TableCell className="text-sm text-right tabular-nums">{formatBRL(row.mkt.p50)}</TableCell>}
-                      <TableCell className="text-sm text-right tabular-nums">{formatIndice(row.indice)}</TableCell>
-                      <TableCell className={`text-sm text-right tabular-nums font-medium ${deltaColor}`}>
+                      <TableCell className="text-label font-medium py-sm-space px-default-space">{row.job.nome}</TableCell>
+                      <TableCell className="text-small text-muted-foreground py-sm-space px-default-space">{row.job.familia}</TableCell>
+                      <TableCell className="text-small text-muted-foreground py-sm-space px-default-space">{row.job.nivel}</TableCell>
+                      {!isManager && <TableCell className="text-label text-right tabular-nums py-sm-space px-default-space">{formatBRL(row.emp.p50)}</TableCell>}
+                      {!isManager && <TableCell className="text-label text-right tabular-nums py-sm-space px-default-space">{formatBRL(row.mkt.p50)}</TableCell>}
+                      <TableCell className="text-label text-right tabular-nums py-sm-space px-default-space">{formatIndice(row.indice)}</TableCell>
+                      <TableCell className={`text-label text-right tabular-nums font-bold py-sm-space px-default-space ${deltaColor}`}>
                         {formatPct(row.deltaPct)}
                       </TableCell>
-                      <TableCell className="text-center">
-                        <Badge variant="outline" className={`text-[10px] ${
+                      <TableCell className="text-center py-sm-space px-default-space">
+                        <Badge variant="outline" className={`text-small ${
                           status === 'acima' ? 'bg-positive/10 text-positive border-positive/20' :
                           status === 'abaixo' ? 'bg-negative/10 text-negative border-negative/20' :
                           'bg-warning/10 text-warning border-warning/20'
@@ -135,14 +135,14 @@ export function JobTable({ jobs, data, filters, onSelectJob }: JobTableProps) {
 
       {totalPages > 1 && (
         <div className="flex items-center justify-between">
-          <span className="text-xs text-muted-foreground">
+          <span className="text-small text-muted-foreground">
             Página {page + 1} de {totalPages}
           </span>
-          <div className="flex gap-1">
-            <Button variant="outline" size="icon" className="h-7 w-7" disabled={page === 0} onClick={() => setPage(p => p - 1)}>
+          <div className="flex gap-xxs">
+            <Button variant="outline" size="icon" className="h-8 w-8 rounded-md" disabled={page === 0} onClick={() => setPage(p => p - 1)}>
               <ChevronLeft className="h-4 w-4" />
             </Button>
-            <Button variant="outline" size="icon" className="h-7 w-7" disabled={page >= totalPages - 1} onClick={() => setPage(p => p + 1)}>
+            <Button variant="outline" size="icon" className="h-8 w-8 rounded-md" disabled={page >= totalPages - 1} onClick={() => setPage(p => p + 1)}>
               <ChevronRight className="h-4 w-4" />
             </Button>
           </div>
