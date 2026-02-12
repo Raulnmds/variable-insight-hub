@@ -49,7 +49,7 @@ function PositionBar({ empresa, mercado }: { empresa: number; mercado: number })
         <span className="relative block w-full h-1.5 bg-grayscale-20 rounded-full overflow-hidden">
           <span
             className={`absolute top-0 h-full rounded-full transition-all duration-500 ${
-              indice > 1.05 ? 'bg-positive' : indice < 0.95 ? 'bg-negative' : 'bg-warning'
+              indice > 1.05 ? 'bg-positive' : indice < 0.95 ? 'bg-negative' : 'bg-primary'
             }`}
             style={{ width: `${pct}%` }}
           />
@@ -114,43 +114,42 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
 
       {/* ===== HERO: Total Consolidado ===== */}
       <Card
-        className="rounded-huge overflow-hidden cursor-pointer group transition-all hover:shadow-dp04 shadow-dp02 border-0"
+        className="rounded-xxl overflow-hidden cursor-pointer group transition-all hover:shadow-dp04 shadow-dp02 border border-border"
         onClick={() => onSelectType('total')}
       >
-        {/* Header band */}
-        <div className="bg-primary px-xmd py-xmd">
-          <div className="flex flex-col lg:flex-row lg:items-center gap-xmd">
+        <CardContent className="p-xmd">
+          <div className="flex flex-col lg:flex-row lg:items-start gap-xmd">
             {/* Left */}
             <div className="flex-1 space-y-default-space">
               <div className="flex items-center gap-sm-space">
-                <div className="h-12 w-12 rounded-lg bg-primary-foreground/15 flex items-center justify-center">
-                  <Sparkles className="h-6 w-6 text-primary-foreground" />
+                <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center">
+                  <Sparkles className="h-6 w-6 text-primary" />
                 </div>
                 <div>
-                  <Badge className="bg-primary-foreground/15 text-primary-foreground border-primary-foreground/20 text-small tracking-wider uppercase mb-1">
+                  <Badge variant="secondary" className="text-small tracking-wider uppercase mb-1">
                     Visão Consolidada
                   </Badge>
-                  <h2 className="text-h2-bold text-primary-foreground">Total Remuneração Variável</h2>
+                  <h2 className="text-h2-bold text-foreground">Total Remuneração Variável</h2>
                 </div>
               </div>
 
-              <p className="text-small text-primary-foreground/60">Soma de Bônus + PPLR + Comissão + Prêmio</p>
+              <p className="text-small text-muted-foreground">Soma de Bônus + PPLR + Comissão + Prêmio</p>
 
               {/* Big numbers */}
               <div className="flex items-end gap-xmd flex-wrap">
                 <div>
                   <IndicatorTooltip tooltipKey="p50Empresa" showIcon>
-                    <p className="text-small text-primary-foreground/50 uppercase tracking-widest mb-xxs">P50 Empresa</p>
+                    <p className="text-small text-muted-foreground uppercase tracking-widest mb-xxs">P50 Empresa</p>
                   </IndicatorTooltip>
-                  <p className="text-[32px] font-bold tabular-nums tracking-tight text-primary-foreground font-heading">
+                  <p className="text-[32px] font-bold tabular-nums tracking-tight text-foreground font-heading">
                     {isManager ? '••••' : formatBRL(totalEmp.p50)}
                   </p>
                 </div>
                 <div className="pb-1">
                   <IndicatorTooltip tooltipKey="p50Mercado" showIcon>
-                    <p className="text-small text-primary-foreground/50 uppercase tracking-widest mb-xxs">P50 Mercado</p>
+                    <p className="text-small text-muted-foreground uppercase tracking-widest mb-xxs">P50 Mercado</p>
                   </IndicatorTooltip>
-                  <p className="text-h2-bold tabular-nums text-primary-foreground/70">
+                  <p className="text-h2-bold tabular-nums text-grayscale-70">
                     {isManager ? '••••' : formatBRL(totalMkt.p50)}
                   </p>
                 </div>
@@ -158,7 +157,7 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
 
               {/* Position bar */}
               <div className="max-w-sm">
-                <div className="flex items-center justify-between text-small text-primary-foreground/40 mb-xxs uppercase tracking-wider">
+                <div className="flex items-center justify-between text-small text-muted-foreground mb-xxs uppercase tracking-wider">
                   <span>Abaixo</span>
                   <span>Mercado</span>
                   <span>Acima</span>
@@ -169,38 +168,38 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
 
             {/* Right: KPI cards */}
             <div className="grid grid-cols-2 gap-sm-space lg:w-[300px]">
-              <div className="rounded-lg bg-primary-foreground/10 p-default-space text-center">
+              <div className="rounded-lg bg-grayscale-5 border border-border p-default-space text-center">
                 <IndicatorTooltip tooltipKey="deltaPct" showIcon>
-                  <p className="text-small text-primary-foreground/50 uppercase tracking-wider mb-xxs">Δ%</p>
+                  <p className="text-small text-muted-foreground uppercase tracking-wider mb-xxs">Δ%</p>
                 </IndicatorTooltip>
                 <p className={`text-h2-bold tabular-nums ${
-                  totalDeltaPct > 5 ? 'text-positive-foreground' : totalDeltaPct < -5 ? 'text-primary-foreground' : 'text-primary-foreground'
+                  totalDeltaPct > 5 ? 'text-positive' : totalDeltaPct < -5 ? 'text-negative' : 'text-foreground'
                 }`}>
                   {formatPct(totalDeltaPct)}
                 </p>
               </div>
-              <div className="rounded-lg bg-primary-foreground/10 p-default-space text-center">
+              <div className="rounded-lg bg-grayscale-5 border border-border p-default-space text-center">
                 <IndicatorTooltip tooltipKey="indice" showIcon>
-                  <p className="text-small text-primary-foreground/50 uppercase tracking-wider mb-xxs">Índice</p>
+                  <p className="text-small text-muted-foreground uppercase tracking-wider mb-xxs">Índice</p>
                 </IndicatorTooltip>
-                <p className="text-h2-bold tabular-nums text-primary-foreground">{totalIndice.toFixed(2)}</p>
+                <p className="text-h2-bold tabular-nums text-foreground">{totalIndice.toFixed(2)}</p>
               </div>
-              <div className="rounded-lg bg-primary-foreground/10 p-default-space text-center">
+              <div className="rounded-lg bg-grayscale-5 border border-border p-default-space text-center">
                 <IndicatorTooltip tooltipKey="posicao" showIcon>
-                  <p className="text-small text-primary-foreground/50 uppercase tracking-wider mb-xxs">Posição</p>
+                  <p className="text-small text-muted-foreground uppercase tracking-wider mb-xxs">Posição</p>
                 </IndicatorTooltip>
                 <div className={`flex items-center justify-center gap-xxs text-label-bold ${
-                  totalStatus === 'acima' ? 'text-primary-foreground' : totalStatus === 'abaixo' ? 'text-primary-foreground' : 'text-primary-foreground'
+                  totalStatus === 'acima' ? 'text-positive' : totalStatus === 'abaixo' ? 'text-negative' : 'text-primary'
                 }`}>
                   <StatusIndicator status={totalStatus} />
                   {totalStatus === 'acima' ? 'Acima' : totalStatus === 'abaixo' ? 'Abaixo' : 'Alinhado'}
                 </div>
               </div>
-              <div className="rounded-lg bg-primary-foreground/10 p-default-space text-center">
+              <div className="rounded-lg bg-grayscale-5 border border-border p-default-space text-center">
                 <IndicatorTooltip tooltipKey="mediaEmpresa" showIcon>
-                  <p className="text-small text-primary-foreground/50 uppercase tracking-wider mb-xxs">Média Emp.</p>
+                  <p className="text-small text-muted-foreground uppercase tracking-wider mb-xxs">Média Emp.</p>
                 </IndicatorTooltip>
-                <p className="text-label-bold tabular-nums text-primary-foreground">
+                <p className="text-label-bold tabular-nums text-foreground">
                   {isManager ? '••••' : formatBRL(totalEmp.media)}
                 </p>
               </div>
@@ -208,13 +207,13 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
           </div>
 
           {/* CTA */}
-          <div className="mt-default-space flex items-center justify-end text-label text-primary-foreground/70 font-medium group-hover:text-primary-foreground transition-colors">
+          <div className="mt-default-space flex items-center justify-end text-label text-primary font-medium group-hover:text-primary/80 transition-colors">
             Ver detalhamento completo <ArrowRight className="h-4 w-4 ml-xxs transition-transform group-hover:translate-x-1" />
           </div>
-        </div>
+        </CardContent>
 
         {/* Percentiles row */}
-        <CardContent className="bg-card px-xmd py-md-space">
+        <div className="bg-grayscale-5 border-t border-border px-xmd py-md-space">
           <div className="grid grid-cols-5 gap-default-space">
             {STAT_KEYS.map(key => {
               const emp = totalEmp[key];
@@ -237,7 +236,7 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
               );
             })}
           </div>
-        </CardContent>
+        </div>
       </Card>
 
       {/* ===== Individual Variable Type Cards ===== */}
@@ -257,29 +256,30 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
             return (
               <Card
                 key={comp.tipo}
-                className="rounded-huge overflow-hidden cursor-pointer group transition-all hover:shadow-dp04 shadow-dp02 border-0"
+                className="rounded-xxl overflow-hidden cursor-pointer group transition-all hover:shadow-dp04 shadow-dp02 border border-border"
                 onClick={() => onSelectType(comp.tipo)}
               >
-                {/* Header band */}
-                <div className="bg-primary px-md-space py-md-space relative overflow-hidden">
+                <CardContent className="p-xmd space-y-default-space">
+                  {/* Header */}
                   <div className="flex items-center gap-sm-space">
-                    <div className="h-10 w-10 rounded-lg bg-primary-foreground/15 flex items-center justify-center">
-                      <Icon className="h-5 w-5 text-primary-foreground" />
+                    <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                      <Icon className="h-5 w-5 text-primary" />
                     </div>
                     <div>
-                      <h4 className="text-label-bold text-primary-foreground">{VARIABLE_PAY_LABELS[comp.tipo]}</h4>
-                      <p className="text-small text-primary-foreground/50 mt-xxs">{typeDescriptions[comp.tipo]}</p>
+                      <h4 className="text-label-bold text-foreground">{VARIABLE_PAY_LABELS[comp.tipo]}</h4>
+                      <p className="text-small text-muted-foreground">{typeDescriptions[comp.tipo]}</p>
                     </div>
                   </div>
 
-                  {/* Position bar on banner */}
-                  <div className="mt-default-space">
+                  {/* Position bar */}
+                  <div>
+                    <div className="flex items-center justify-between text-small text-muted-foreground mb-xxs uppercase tracking-wider">
+                      <span className="text-[10px]">Abaixo</span>
+                      <span className="text-[10px]">Acima</span>
+                    </div>
                     <PositionBar empresa={emp.p50} mercado={mkt.p50} />
                   </div>
-                </div>
 
-                {/* Card body */}
-                <CardContent className="bg-card px-md-space py-default-space space-y-sm-space">
                   {/* Main metric */}
                   {!isManager && (
                     <div>
@@ -309,7 +309,7 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
                     <div className="text-right">
                       <IndicatorTooltip tooltipKey="posicao">
                         <div className={`flex items-center gap-xxs text-small-bold ${
-                          status === 'acima' ? 'text-positive' : status === 'abaixo' ? 'text-negative' : 'text-warning'
+                          status === 'acima' ? 'text-positive' : status === 'abaixo' ? 'text-negative' : 'text-primary'
                         }`}>
                           <StatusIndicator status={status} />
                           {status === 'acima' ? 'Acima' : status === 'abaixo' ? 'Abaixo' : 'Alinhado'}
