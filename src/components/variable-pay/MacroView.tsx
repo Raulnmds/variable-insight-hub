@@ -157,11 +157,6 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
 
               {/* Position bar */}
               <div className="max-w-sm">
-                <div className="flex items-center justify-between text-small text-muted-foreground mb-xxs uppercase tracking-wider">
-                  <span>Abaixo</span>
-                  <span>Mercado</span>
-                  <span>Acima</span>
-                </div>
                 <PositionBar empresa={totalEmp.p50} mercado={totalMkt.p50} />
               </div>
             </div>
