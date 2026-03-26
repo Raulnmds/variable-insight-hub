@@ -165,15 +165,16 @@ export function OverviewStackedChartCard({ cut, clickable, onClick }: Props) {
               />
             ))}
             {/* Empresa stacked bars */}
-            {COMPONENTS.map(({ key, color }, i) => (
+            {COMPONENTS.map(({ key }, i) => (
               <Bar
                 key={`e-${key}`}
                 dataKey={`empresa_${key}`}
                 stackId="empresa"
-                fill={color}
+                fill={EMPRESA_COLORS[key]}
                 radius={i === COMPONENTS.length - 1 ? [3, 3, 0, 0] : [0, 0, 0, 0]}
                 maxBarSize={28}
-                opacity={1}
+              />
+            ))}
               />
             ))}
           </BarChart>
