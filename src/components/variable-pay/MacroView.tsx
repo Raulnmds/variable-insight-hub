@@ -121,16 +121,11 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
           <div className="flex flex-col lg:flex-row lg:items-start gap-xmd">
             {/* Left */}
             <div className="flex-1 space-y-default-space">
-              <div className="flex items-center gap-sm-space">
-                <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center">
-                  <Sparkles className="h-6 w-6 text-primary" />
-                </div>
-                <div>
-                  <Badge variant="secondary" className="text-small tracking-wider uppercase mb-1">
-                    Visão Consolidada
-                  </Badge>
-                  <h2 className="text-h2-bold text-foreground">Total Remuneração Variável</h2>
-                </div>
+              <div>
+                <Badge variant="secondary" className="text-small tracking-wider uppercase mb-1">
+                  Visão Consolidada
+                </Badge>
+                <h2 className="text-h2-bold text-foreground">Total Remuneração Variável</h2>
               </div>
 
               <p className="text-small text-muted-foreground">Soma de Bônus + PPLR + Comissão + Prêmio</p>
