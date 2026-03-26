@@ -29,6 +29,34 @@ function make(base: number, seed: number): OverviewStats {
   };
 }
 
+export interface OverviewStackedStats {
+  bonus: OverviewStats;
+  pplr: OverviewStats;
+  comissao: OverviewStats;
+  premio: OverviewStats;
+}
+
+export interface OverviewStackedCut {
+  label: string;
+  mercado: OverviewStackedStats;
+  empresa: OverviewStackedStats;
+}
+
+function makeStacked(base: number, seed: number): OverviewStackedStats {
+  return {
+    bonus: make(base * 0.35, seed),
+    pplr: make(base * 0.30, seed + 5),
+    comissao: make(base * 0.20, seed + 10),
+    premio: make(base * 0.15, seed + 15),
+  };
+}
+
+export const variablePayStackedCuts: OverviewStackedCut[] = [
+  { label: 'Geral', mercado: makeStacked(2400, 13), empresa: makeStacked(2100, 14) },
+  { label: 'Tecnologia', mercado: makeStacked(2800, 15), empresa: makeStacked(2500, 16) },
+  { label: 'Comercial', mercado: makeStacked(3200, 17), empresa: makeStacked(3600, 18) },
+];
+
 export const overviewCategories: OverviewCategory[] = [
   {
     id: 'salario-base',
