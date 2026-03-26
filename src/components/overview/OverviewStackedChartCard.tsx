@@ -4,11 +4,26 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 import { Maximize2 } from 'lucide-react';
 
 const COMPONENTS = [
-  { key: 'bonus', label: 'Bônus', color: 'hsl(var(--primary))' },
-  { key: 'pplr', label: 'PPLR', color: 'hsl(var(--secondary))' },
-  { key: 'comissao', label: 'Comissão', color: 'hsl(var(--positive))' },
-  { key: 'premio', label: 'Prêmio', color: 'hsl(var(--warning))' },
+  { key: 'bonus', label: 'Bônus' },
+  { key: 'pplr', label: 'PPLR' },
+  { key: 'comissao', label: 'Comissão' },
+  { key: 'premio', label: 'Prêmio' },
 ] as const;
+
+// Empresa = Lime palette, Mercado = Hippie Blue palette
+const EMPRESA_COLORS = {
+  bonus: '#436500',    // Lime 900
+  pplr: '#6DA300',     // Lime 700
+  comissao: '#ADE500', // Lime 500
+  premio: '#C8F15C',   // Lime 300
+};
+
+const MERCADO_COLORS = {
+  bonus: '#1D2F34',    // Hippie Blue 900
+  pplr: '#426E78',     // Hippie Blue 700
+  comissao: '#67ACBC', // Hippie Blue 500
+  premio: '#9ECAD4',   // Hippie Blue 300
+};
 
 type StatKey = 'p25' | 'media' | 'p50' | 'p75' | 'p90';
 const PERCENTILES: { key: StatKey; label: string }[] = [
