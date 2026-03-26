@@ -299,6 +299,42 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
                       </IndicatorTooltip>
                     </div>
                   </div>
+                  {/* Mini comparison chart */}
+                  <div className="pt-sm-space border-t border-border">
+                    <ResponsiveContainer width="100%" height={160}>
+                      <BarChart data={STAT_KEYS.map(k => ({ name: STAT_LABELS[k], Empresa: emp[k], Mercado: mkt[k] }))} barGap={2} barCategoryGap="15%">
+                        <CartesianGrid strokeDasharray="3 3" stroke="hsl(220, 13%, 91%)" />
+                        <XAxis dataKey="name" tick={{ fontSize: 10, fontFamily: 'Open Sans' }} stroke="hsl(210, 10%, 60%)" />
+                        <YAxis tick={{ fontSize: 9, fontFamily: 'Open Sans' }} tickFormatter={v => isManager ? '•••' : `${(v / 1000).toFixed(0)}k`} stroke="hsl(210, 10%, 60%)" width={35} />
+                        <Tooltip content={({ active, payload, label }: any) => {
+                          if (!active || !payload) return null;
+                          return (
+                            <div className="bg-card border border-border rounded-lg shadow-dp08 p-xs text-small">
+                              <p className="text-label-bold mb-xxs">{label}</p>
+                              {payload.map((p: any) => (
+                                <p key={p.name} style={{ color: p.color }}>
+                                  {p.name}: {isManager ? '••••' : formatBRL(p.value)}
+                                </p>
+                              ))}
+                            </div>
+                          );
+                        }} />
+                        <Bar dataKey="Empresa" fill="hsl(152, 83%, 36%)" radius={[3, 3, 0, 0]} />
+                        <Bar dataKey="Mercado" fill="hsl(210, 56%, 60%)" radius={[3, 3, 0, 0]} />
+                      </BarChart>
+                    </ResponsiveContainer>
+                    <div className="flex items-center justify-center gap-sm-space mt-xxs">
+                      <div className="flex items-center gap-xxs">
+                        <span className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: 'hsl(152, 83%, 36%)' }} />
+                        <span className="text-[10px] text-muted-foreground">Empresa</span>
+                      </div>
+                      <div className="flex items-center gap-xxs">
+                        <span className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: 'hsl(210, 56%, 60%)' }} />
+                        <span className="text-[10px] text-muted-foreground">Mercado</span>
+                      </div>
+                    </div>
+                  </div>
+
                 </CardContent>
               </Card>
             );
