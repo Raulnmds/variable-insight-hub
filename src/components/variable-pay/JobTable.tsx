@@ -91,7 +91,7 @@ export function JobTable({ jobs, data, filters, onSelectJob }: JobTableProps) {
             <TableBody>
               {paged.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={isManager ? 5 : 7} className="text-center py-xxbig text-label text-muted-foreground">
+                  <TableCell colSpan={isManager ? 4 : 6} className="text-center py-xxbig text-label text-muted-foreground">
                     Nenhum cargo encontrado para os filtros selecionados.
                   </TableCell>
                 </TableRow>

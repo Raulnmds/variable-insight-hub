@@ -92,11 +92,10 @@ export function JobDetailDrawer({ open, onClose, job, data, filters }: JobDetail
                         <td className="py-sm-space px-default-space text-label-bold">
                           <IndicatorTooltip tooltipKey={statTooltipKeys[key]}>{STAT_LABELS[key]}</IndicatorTooltip>
                         </td>
-                        {!isManager && <td className="text-right py-sm-space px-default-space tabular-nums">{formatBRL(emp[key])}</td>}
-                        {!isManager && <td className="text-right py-sm-space px-default-space tabular-nums">{formatBRL(mkt[key])}</td>}
+                        {!isManager && <td className="text-right py-sm-space px-default-space tabular-nums text-chart-company">{formatBRL(emp[key])}</td>}
+                        {!isManager && <td className="text-right py-sm-space px-default-space tabular-nums text-chart-market">{formatBRL(mkt[key])}</td>}
                         {!isManager && <td className={`text-right py-sm-space px-default-space tabular-nums ${color}`}>{formatBRL(delta)}</td>}
                         <td className={`text-right py-sm-space px-default-space tabular-nums ${color}`}>{formatPct(pct)}</td>
-                        <td className="text-right py-sm-space px-default-space tabular-nums">{idx.toFixed(2)}</td>
                       </tr>
                     );
                   })}

@@ -294,12 +294,6 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
                         pct > 5 ? 'text-positive' : pct < -5 ? 'text-negative' : 'text-warning'
                       }`}>{formatPct(pct)}</p>
                     </div>
-                    <div className="text-center">
-                      <IndicatorTooltip tooltipKey="indice">
-                        <p className="text-small text-muted-foreground uppercase tracking-wider">Índice</p>
-                      </IndicatorTooltip>
-                      <p className="text-label-bold tabular-nums text-foreground">{indice.toFixed(2)}</p>
-                    </div>
                     <div className="text-right">
                       <IndicatorTooltip tooltipKey="posicao">
                         <div className={`flex items-center gap-xxs text-small-bold ${
