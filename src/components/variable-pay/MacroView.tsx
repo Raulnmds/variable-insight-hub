@@ -278,9 +278,9 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
                   {!isManager && (
                     <div>
                       <IndicatorTooltip tooltipKey="p50">
-                        <p className="text-h2-bold tabular-nums text-foreground">{formatBRL(emp.p50)}</p>
+                        <p className="text-h2-bold tabular-nums text-chart-company">{formatBRL(emp.p50)}</p>
                       </IndicatorTooltip>
-                      <p className="text-small text-muted-foreground tabular-nums">vs {formatBRL(mkt.p50)} mercado</p>
+                      <p className="text-small text-chart-market tabular-nums">vs {formatBRL(mkt.p50)} mercado</p>
                     </div>
                   )}
 
