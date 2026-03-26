@@ -140,7 +140,7 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
                   <IndicatorTooltip tooltipKey="p50Mercado" showIcon>
                     <p className="text-small text-chart-market uppercase tracking-widest mb-xxs">P50 Mercado</p>
                   </IndicatorTooltip>
-                  <p className={`text-[32px] font-bold tabular-nums tracking-tight font-heading ${totalMkt.p50 >= totalEmp.p50 ? 'text-chart-market' : 'text-chart-market/50'}`}>
+                  <p className={`text-h2-bold tabular-nums tracking-tight font-heading ${totalMkt.p50 >= totalEmp.p50 ? 'text-chart-market' : 'text-chart-market/50'}`}>
                     {isManager ? '••••' : formatBRL(totalMkt.p50)}
                   </p>
                 </div>
