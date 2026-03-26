@@ -137,19 +137,19 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
               {/* Big numbers */}
               <div className="flex items-start gap-xmd flex-wrap">
                 <div>
-                  <IndicatorTooltip tooltipKey="p50Empresa" showIcon>
-                    <p className="text-small text-chart-company uppercase tracking-widest mb-xxs">P50 Empresa</p>
-                  </IndicatorTooltip>
-                  <p className="text-[32px] font-bold tabular-nums tracking-tight text-chart-company font-heading">
-                    {isManager ? '••••' : formatBRL(totalEmp.p50)}
-                  </p>
-                </div>
-                <div>
                   <IndicatorTooltip tooltipKey="p50Mercado" showIcon>
                     <p className="text-small text-chart-market uppercase tracking-widest mb-xxs">P50 Mercado</p>
                   </IndicatorTooltip>
-                  <p className="text-h2-bold tabular-nums text-chart-market">
-                    {isManager ? '••••' : <>{formatBRL(totalMkt.p50)} <span className="text-small font-normal">mercado</span></>}
+                  <p className="text-[32px] font-bold tabular-nums tracking-tight text-chart-market font-heading">
+                    {isManager ? '••••' : formatBRL(totalMkt.p50)}
+                  </p>
+                </div>
+                <div>
+                  <IndicatorTooltip tooltipKey="p50Empresa" showIcon>
+                    <p className="text-small text-chart-company uppercase tracking-widest mb-xxs">P50 Empresa</p>
+                  </IndicatorTooltip>
+                  <p className="text-h2-bold tabular-nums text-chart-company">
+                    {isManager ? '••••' : formatBRL(totalEmp.p50)}
                   </p>
                 </div>
               </div>
