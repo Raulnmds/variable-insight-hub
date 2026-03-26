@@ -11,7 +11,7 @@ export const INDICATOR_TOOLTIPS: Record<string, string> = {
   delta: 'Delta Absoluto (Δ): diferença em reais entre o valor da Empresa e o valor de Mercado. Positivo = empresa paga mais.',
   deltaPct: 'Delta Percentual (Δ%): diferença percentual entre Empresa e Mercado. Fórmula: (Empresa − Mercado) / Mercado × 100.',
   indice: 'Índice de competitividade: razão Empresa / Mercado. Ex.: 1,10 = empresa paga 10% acima; 0,90 = 10% abaixo.',
-  posicao: 'Posição relativa ao mercado com base no P50. Acima (>5%), Alinhado (±5%) ou Abaixo (<-5%).',
+  posicao: 'Posição relativa ao mercado com base no P50. Acima (>20%), Alinhado (±20%) ou Abaixo (<-20%).',
   p50Empresa: 'Mediana (P50) da remuneração variável praticada internamente pela empresa para o recorte selecionado.',
   p50Mercado: 'Mediana (P50) da remuneração variável praticada pelo mercado de referência para o recorte selecionado.',
   mediaEmpresa: 'Média aritmética da remuneração variável praticada pela empresa para o recorte selecionado.',
