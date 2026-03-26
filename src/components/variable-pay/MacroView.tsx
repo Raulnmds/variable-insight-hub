@@ -213,7 +213,7 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
               const emp = totalEmp[key];
               const mkt = totalMkt[key];
               const pct = calcDeltaPct(emp, mkt);
-              const color = pct > 5 ? 'text-positive' : pct < -5 ? 'text-negative' : 'text-warning';
+              const color = pct < 0 ? 'text-negative' : 'text-foreground';
               return (
                 <div key={key} className="text-center">
                   <IndicatorTooltip tooltipKey={statTooltipKeys[key]} showIcon>
