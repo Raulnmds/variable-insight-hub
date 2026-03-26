@@ -113,12 +113,24 @@ export function OverviewStackedChartCard({ cut, clickable, onClick }: Props) {
 
         {/* Legend */}
         <div className="flex items-center gap-default-space mb-sm-space flex-wrap">
-          {COMPONENTS.map(({ key, label: l, color }) => (
-            <div key={key} className="flex items-center gap-xxs">
-              <span className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: color }} />
-              <span className="text-small text-muted-foreground">{l}</span>
-            </div>
-          ))}
+          <div className="flex items-center gap-xs">
+            <span className="text-small font-bold text-muted-foreground">Mercado:</span>
+            {COMPONENTS.map(({ key, label: l }) => (
+              <div key={`m-${key}`} className="flex items-center gap-xxs">
+                <span className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: MERCADO_COLORS[key] }} />
+                <span className="text-small text-muted-foreground">{l}</span>
+              </div>
+            ))}
+          </div>
+          <div className="flex items-center gap-xs">
+            <span className="text-small font-bold text-muted-foreground">Empresa:</span>
+            {COMPONENTS.map(({ key, label: l }) => (
+              <div key={`e-${key}`} className="flex items-center gap-xxs">
+                <span className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: EMPRESA_COLORS[key] }} />
+                <span className="text-small text-muted-foreground">{l}</span>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Stacked Bar Chart */}
