@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Filters, VariablePayType, VARIABLE_PAY_LABELS, Job } from '@/types/variablePay';
 import { filterJobs, getDataForJobs, applyViewMode, calcDeltaPct, calcIndice, formatBRL, formatPct, formatIndice, exportToCSV, getPositionStatus } from '@/lib/variablePayUtils';
@@ -106,7 +107,20 @@ export function DetailView({ type, filters, onBack }: DetailViewProps) {
               </div>
               <div>
                 <h2 className="text-h2-bold text-primary-foreground">{VARIABLE_PAY_LABELS[type]}</h2>
-                <p className="text-small text-primary-foreground/50">Análise detalhada por cargo</p>
+                <div className="flex items-center gap-xs mt-xxs flex-wrap">
+                  {filters.familia && (
+                    <Badge variant="secondary" className="text-small bg-primary-foreground/15 text-primary-foreground border-0">{filters.familia}</Badge>
+                  )}
+                  {filters.nivel && (
+                    <Badge variant="secondary" className="text-small bg-primary-foreground/15 text-primary-foreground border-0">{filters.nivel}</Badge>
+                  )}
+                  {filters.area && (
+                    <Badge variant="secondary" className="text-small bg-primary-foreground/15 text-primary-foreground border-0">{filters.area}</Badge>
+                  )}
+                  {!filters.familia && !filters.nivel && !filters.area && (
+                    <p className="text-small text-primary-foreground/50">Todos os cargos · Análise detalhada</p>
+                  )}
+                </div>
               </div>
             </div>
             <Button variant="outline" size="sm" className="gap-1.5 bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/20" onClick={handleExport}>
