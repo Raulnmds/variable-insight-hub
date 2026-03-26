@@ -161,7 +161,7 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
             </div>
 
             {/* Right: KPI cards */}
-            <div className="grid grid-cols-3 gap-sm-space lg:w-[340px]">
+            <div className="grid grid-cols-3 gap-sm-space lg:w-[340px] pt-default-space">
               <div className="rounded-lg bg-grayscale-5 border border-border p-default-space text-center">
                 <IndicatorTooltip tooltipKey="deltaPct" showIcon>
                   <p className="text-small text-muted-foreground uppercase tracking-wider mb-xxs">Δ%</p>
