@@ -319,18 +319,18 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
                             </div>
                           );
                         }} />
-                        <Bar dataKey="Empresa" fill="hsl(152, 83%, 36%)" radius={[3, 3, 0, 0]} />
                         <Bar dataKey="Mercado" fill="hsl(210, 56%, 60%)" radius={[3, 3, 0, 0]} />
+                        <Bar dataKey="Empresa" fill="hsl(152, 83%, 36%)" radius={[3, 3, 0, 0]} />
                       </BarChart>
                     </ResponsiveContainer>
                     <div className="flex items-center justify-center gap-sm-space mt-xxs">
                       <div className="flex items-center gap-xxs">
-                        <span className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: 'hsl(152, 83%, 36%)' }} />
-                        <span className="text-[10px] text-muted-foreground">Empresa</span>
-                      </div>
-                      <div className="flex items-center gap-xxs">
                         <span className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: 'hsl(210, 56%, 60%)' }} />
                         <span className="text-[10px] text-muted-foreground">Mercado</span>
+                      </div>
+                      <div className="flex items-center gap-xxs">
+                        <span className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: 'hsl(152, 83%, 36%)' }} />
+                        <span className="text-[10px] text-muted-foreground">Empresa</span>
                       </div>
                     </div>
                   </div>
