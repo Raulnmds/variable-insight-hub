@@ -44,9 +44,8 @@ export function JobDetailDrawer({ open, onClose, job, data, filters }: JobDetail
           <div className="flex items-center gap-sm-space">
             <IndicatorTooltip tooltipKey="posicao">
               <Badge variant="outline" className={`text-label py-xs px-sm-space ${
-                status === 'acima' ? 'bg-positive/10 text-positive border-positive/20' :
                 status === 'abaixo' ? 'bg-negative/10 text-negative border-negative/20' :
-                'bg-warning/10 text-warning border-warning/20'
+                'bg-grayscale-10 text-foreground border-border'
               }`}>
                 {status === 'acima' ? '↑ Acima do mercado' : status === 'abaixo' ? '↓ Abaixo do mercado' : '→ Alinhado ao mercado'}
               </Badge>
@@ -86,7 +85,7 @@ export function JobDetailDrawer({ open, onClose, job, data, filters }: JobDetail
                     const delta = calcDelta(emp[key], mkt[key]);
                     const pct = calcDeltaPct(emp[key], mkt[key]);
                     const idx = calcIndice(emp[key], mkt[key]);
-                    const color = delta > 0 ? 'text-positive' : delta < 0 ? 'text-negative' : '';
+                    const color = delta < 0 ? 'text-negative' : 'text-foreground';
                     return (
                       <tr key={key} className="border-b border-border hover:bg-grayscale-5 transition-colors">
                         <td className="py-sm-space px-default-space text-label-bold">

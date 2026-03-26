@@ -173,7 +173,7 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
                   <p className="text-small text-muted-foreground uppercase tracking-wider mb-xxs">Δ%</p>
                 </IndicatorTooltip>
                 <p className={`text-h2-bold tabular-nums ${
-                  totalDeltaPct > 5 ? 'text-positive' : totalDeltaPct < -5 ? 'text-negative' : 'text-foreground'
+                  totalDeltaPct < 0 ? 'text-negative' : 'text-foreground'
                 }`}>
                   {formatPct(totalDeltaPct)}
                 </p>
@@ -183,7 +183,7 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
                   <p className="text-small text-muted-foreground uppercase tracking-wider mb-xxs">Posição</p>
                 </IndicatorTooltip>
                 <div className={`flex items-center justify-center gap-xxs text-label-bold ${
-                  totalStatus === 'acima' ? 'text-positive' : totalStatus === 'abaixo' ? 'text-negative' : 'text-primary'
+                  totalStatus === 'abaixo' ? 'text-negative' : 'text-foreground'
                 }`}>
                   <StatusIndicator status={totalStatus} />
                   {totalStatus === 'acima' ? 'Acima' : totalStatus === 'abaixo' ? 'Abaixo' : 'Alinhado'}
@@ -291,13 +291,13 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
                         <p className="text-small text-muted-foreground uppercase tracking-wider">Δ%</p>
                       </IndicatorTooltip>
                       <p className={`text-label-bold tabular-nums ${
-                        pct > 5 ? 'text-positive' : pct < -5 ? 'text-negative' : 'text-warning'
+                        pct < 0 ? 'text-negative' : 'text-foreground'
                       }`}>{formatPct(pct)}</p>
                     </div>
                     <div className="text-right">
                       <IndicatorTooltip tooltipKey="posicao">
                         <div className={`flex items-center gap-xxs text-small-bold ${
-                          status === 'acima' ? 'text-positive' : status === 'abaixo' ? 'text-negative' : 'text-primary'
+                          status === 'abaixo' ? 'text-negative' : 'text-foreground'
                         }`}>
                           <StatusIndicator status={status} />
                           {status === 'acima' ? 'Acima' : status === 'abaixo' ? 'Abaixo' : 'Alinhado'}
