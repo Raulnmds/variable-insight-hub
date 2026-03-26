@@ -86,7 +86,7 @@ export function JobDetailDrawer({ open, onClose, job, data, filters }: JobDetail
                     const delta = calcDelta(emp[key], mkt[key]);
                     const pct = calcDeltaPct(emp[key], mkt[key]);
                     const idx = calcIndice(emp[key], mkt[key]);
-                    const color = delta > 0 ? 'text-positive' : delta < 0 ? 'text-negative' : '';
+                    const color = delta < 0 ? 'text-negative' : 'text-foreground';
                     return (
                       <tr key={key} className="border-b border-border hover:bg-grayscale-5 transition-colors">
                         <td className="py-sm-space px-default-space text-label-bold">

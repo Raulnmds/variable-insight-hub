@@ -98,7 +98,7 @@ export function JobTable({ jobs, data, filters, onSelectJob }: JobTableProps) {
               ) : (
                 paged.map((row: any) => {
                   const status = getPositionStatus(row.emp.p50, row.mkt.p50);
-                  const deltaColor = row.deltaPct > 5 ? 'text-positive' : row.deltaPct < -5 ? 'text-negative' : 'text-warning';
+                  const deltaColor = row.deltaPct < 0 ? 'text-negative' : 'text-foreground';
                   return (
                     <TableRow
                       key={row.cargo_id}
