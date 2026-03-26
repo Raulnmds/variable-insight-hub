@@ -154,15 +154,14 @@ export function OverviewStackedChartCard({ cut, clickable, onClick }: Props) {
             />
             <Tooltip content={<CustomTooltip />} cursor={{ fill: 'hsl(var(--grayscale-10))' }} />
             {/* Mercado stacked bars */}
-            {COMPONENTS.map(({ key, color }, i) => (
+            {COMPONENTS.map(({ key }, i) => (
               <Bar
                 key={`m-${key}`}
                 dataKey={`mercado_${key}`}
                 stackId="mercado"
-                fill={color}
+                fill={MERCADO_COLORS[key]}
                 radius={i === COMPONENTS.length - 1 ? [3, 3, 0, 0] : [0, 0, 0, 0]}
                 maxBarSize={28}
-                opacity={0.85}
               />
             ))}
             {/* Empresa stacked bars */}
