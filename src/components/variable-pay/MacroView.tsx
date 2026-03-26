@@ -291,7 +291,7 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
                         <p className="text-small text-muted-foreground uppercase tracking-wider">Δ%</p>
                       </IndicatorTooltip>
                       <p className={`text-label-bold tabular-nums ${
-                        pct > 5 ? 'text-positive' : pct < -5 ? 'text-negative' : 'text-warning'
+                        pct < 0 ? 'text-negative' : 'text-foreground'
                       }`}>{formatPct(pct)}</p>
                     </div>
                     <div className="text-right">
