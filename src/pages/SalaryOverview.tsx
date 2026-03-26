@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { overviewCategories } from '@/data/salaryOverviewMockData';
+import { overviewCategories, variablePayStackedCuts } from '@/data/salaryOverviewMockData';
 import { OverviewChartCard } from '@/components/overview/OverviewChartCard';
+import { OverviewStackedChartCard } from '@/components/overview/OverviewStackedChartCard';
 import { FilterBar } from '@/components/variable-pay/FilterBar';
 import { MacroView } from '@/components/variable-pay/MacroView';
 import { DetailView } from '@/components/variable-pay/DetailView';
