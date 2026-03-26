@@ -4,11 +4,26 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 import { Maximize2 } from 'lucide-react';
 
 const COMPONENTS = [
-  { key: 'bonus', label: 'Bônus', color: 'hsl(var(--primary))' },
-  { key: 'pplr', label: 'PPLR', color: 'hsl(var(--secondary))' },
-  { key: 'comissao', label: 'Comissão', color: 'hsl(var(--positive))' },
-  { key: 'premio', label: 'Prêmio', color: 'hsl(var(--warning))' },
+  { key: 'bonus', label: 'Bônus' },
+  { key: 'pplr', label: 'PPLR' },
+  { key: 'comissao', label: 'Comissão' },
+  { key: 'premio', label: 'Prêmio' },
 ] as const;
+
+// Empresa = Lime palette, Mercado = Hippie Blue palette
+const EMPRESA_COLORS = {
+  bonus: '#436500',    // Lime 900
+  pplr: '#6DA300',     // Lime 700
+  comissao: '#ADE500', // Lime 500
+  premio: '#C8F15C',   // Lime 300
+};
+
+const MERCADO_COLORS = {
+  bonus: '#1D2F34',    // Hippie Blue 900
+  pplr: '#426E78',     // Hippie Blue 700
+  comissao: '#67ACBC', // Hippie Blue 500
+  premio: '#9ECAD4',   // Hippie Blue 300
+};
 
 type StatKey = 'p25' | 'media' | 'p50' | 'p75' | 'p90';
 const PERCENTILES: { key: StatKey; label: string }[] = [
@@ -62,10 +77,10 @@ export function OverviewStackedChartCard({ cut, clickable, onClick }: Props) {
         <div className="grid grid-cols-2 gap-x-4 gap-y-0.5">
           <span className="text-muted-foreground font-bold">Mercado</span>
           <span className="text-muted-foreground font-bold">Empresa</span>
-          {COMPONENTS.map(({ key, label: compLabel, color }) => (
+          {COMPONENTS.map(({ key, label: compLabel }) => (
             <>
-              <span key={`m-${key}`} style={{ color }}>{compLabel}: {formatCurrency(cut.mercado[key].p50)}</span>
-              <span key={`e-${key}`} style={{ color }}>{compLabel}: {formatCurrency(cut.empresa[key].p50)}</span>
+              <span key={`m-${key}`} style={{ color: MERCADO_COLORS[key] }}>{compLabel}: {formatCurrency(cut.mercado[key].p50)}</span>
+              <span key={`e-${key}`} style={{ color: EMPRESA_COLORS[key] }}>{compLabel}: {formatCurrency(cut.empresa[key].p50)}</span>
             </>
           ))}
           <span className="font-bold border-t border-border pt-0.5">Total: {formatCurrency(totalM)}</span>
@@ -98,12 +113,24 @@ export function OverviewStackedChartCard({ cut, clickable, onClick }: Props) {
 
         {/* Legend */}
         <div className="flex items-center gap-default-space mb-sm-space flex-wrap">
-          {COMPONENTS.map(({ key, label: l, color }) => (
-            <div key={key} className="flex items-center gap-xxs">
-              <span className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: color }} />
-              <span className="text-small text-muted-foreground">{l}</span>
-            </div>
-          ))}
+          <div className="flex items-center gap-xs">
+            <span className="text-small font-bold text-muted-foreground">Mercado:</span>
+            {COMPONENTS.map(({ key, label: l }) => (
+              <div key={`m-${key}`} className="flex items-center gap-xxs">
+                <span className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: MERCADO_COLORS[key] }} />
+                <span className="text-small text-muted-foreground">{l}</span>
+              </div>
+            ))}
+          </div>
+          <div className="flex items-center gap-xs">
+            <span className="text-small font-bold text-muted-foreground">Empresa:</span>
+            {COMPONENTS.map(({ key, label: l }) => (
+              <div key={`e-${key}`} className="flex items-center gap-xxs">
+                <span className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: EMPRESA_COLORS[key] }} />
+                <span className="text-small text-muted-foreground">{l}</span>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Stacked Bar Chart */}
@@ -127,27 +154,25 @@ export function OverviewStackedChartCard({ cut, clickable, onClick }: Props) {
             />
             <Tooltip content={<CustomTooltip />} cursor={{ fill: 'hsl(var(--grayscale-10))' }} />
             {/* Mercado stacked bars */}
-            {COMPONENTS.map(({ key, color }, i) => (
+            {COMPONENTS.map(({ key }, i) => (
               <Bar
                 key={`m-${key}`}
                 dataKey={`mercado_${key}`}
                 stackId="mercado"
-                fill={color}
+                fill={MERCADO_COLORS[key]}
                 radius={i === COMPONENTS.length - 1 ? [3, 3, 0, 0] : [0, 0, 0, 0]}
                 maxBarSize={28}
-                opacity={0.85}
               />
             ))}
             {/* Empresa stacked bars */}
-            {COMPONENTS.map(({ key, color }, i) => (
+            {COMPONENTS.map(({ key }, i) => (
               <Bar
                 key={`e-${key}`}
                 dataKey={`empresa_${key}`}
                 stackId="empresa"
-                fill={color}
+                fill={EMPRESA_COLORS[key]}
                 radius={i === COMPONENTS.length - 1 ? [3, 3, 0, 0] : [0, 0, 0, 0]}
                 maxBarSize={28}
-                opacity={1}
               />
             ))}
           </BarChart>
