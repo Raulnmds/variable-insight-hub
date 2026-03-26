@@ -136,7 +136,7 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
               <p className="text-small text-muted-foreground">Soma de Bônus + PPLR + Comissão + Prêmio</p>
 
               {/* Big numbers */}
-              <div className="flex items-end gap-xmd flex-wrap">
+              <div className="flex items-start gap-xmd flex-wrap">
                 <div>
                   <IndicatorTooltip tooltipKey="p50Empresa" showIcon>
                     <p className="text-small text-chart-company uppercase tracking-widest mb-xxs">P50 Empresa</p>
@@ -145,7 +145,7 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
                     {isManager ? '••••' : formatBRL(totalEmp.p50)}
                   </p>
                 </div>
-                <div className="pb-1">
+                <div>
                   <IndicatorTooltip tooltipKey="p50Mercado" showIcon>
                     <p className="text-small text-chart-market uppercase tracking-widest mb-xxs">P50 Mercado</p>
                   </IndicatorTooltip>
