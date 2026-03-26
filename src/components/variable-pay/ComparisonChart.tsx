@@ -41,8 +41,8 @@ export function ComparisonChart({ empresa, mercado, hideValues }: ComparisonChar
         />
         <Tooltip content={<CustomTooltip />} />
         <Legend wrapperStyle={{ fontSize: 12, fontFamily: 'Open Sans' }} />
-        <Bar dataKey="Empresa" fill="hsl(152, 83%, 36%)" radius={[4, 4, 0, 0]} />
         <Bar dataKey="Mercado" fill="hsl(210, 56%, 60%)" radius={[4, 4, 0, 0]} />
+        <Bar dataKey="Empresa" fill="hsl(152, 83%, 36%)" radius={[4, 4, 0, 0]} />
       </BarChart>
     </ResponsiveContainer>
   );
