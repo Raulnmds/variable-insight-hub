@@ -44,37 +44,8 @@ export function FilterBar({ filters, onFiltersChange }: FilterBarProps) {
           </SelectContent>
         </Select>
 
-        <Select value={filters.area || '__all__'} onValueChange={v => update({ area: v === '__all__' ? '' : v })}>
-          <SelectTrigger className="w-[140px] h-9 text-label rounded-md border-input"><SelectValue placeholder="Área" /></SelectTrigger>
-          <SelectContent>
-            <SelectItem value="__all__">Todas as áreas</SelectItem>
-            {filterOptions.areas.map(a => <SelectItem key={a} value={a}>{a}</SelectItem>)}
-          </SelectContent>
-        </Select>
 
-        <Select value={filters.familia || '__all__'} onValueChange={v => update({ familia: v === '__all__' ? '' : v })}>
-          <SelectTrigger className="w-[160px] h-9 text-label rounded-md border-input"><SelectValue placeholder="Família" /></SelectTrigger>
-          <SelectContent>
-            <SelectItem value="__all__">Todas as famílias</SelectItem>
-            {filterOptions.familias.map(f => <SelectItem key={f} value={f}>{f}</SelectItem>)}
-          </SelectContent>
-        </Select>
 
-        <Select value={filters.nivel || '__all__'} onValueChange={v => update({ nivel: v === '__all__' ? '' : v })}>
-          <SelectTrigger className="w-[140px] h-9 text-label rounded-md border-input"><SelectValue placeholder="Nível" /></SelectTrigger>
-          <SelectContent>
-            <SelectItem value="__all__">Todos os níveis</SelectItem>
-            {filterOptions.niveis.map(n => <SelectItem key={n} value={n}>{n}</SelectItem>)}
-          </SelectContent>
-        </Select>
-
-        <Select value={filters.localidade || '__all__'} onValueChange={v => update({ localidade: v === '__all__' ? '' : v })}>
-          <SelectTrigger className="w-[150px] h-9 text-label rounded-md border-input"><SelectValue placeholder="Localidade" /></SelectTrigger>
-          <SelectContent>
-            <SelectItem value="__all__">Todas localidades</SelectItem>
-            {filterOptions.localidades.map(l => <SelectItem key={l} value={l}>{l}</SelectItem>)}
-          </SelectContent>
-        </Select>
 
         <div className="ml-auto flex items-center gap-xs">
           <Select value={filters.viewMode} onValueChange={v => update({ viewMode: v as 'anual' | 'mensal' })}>
