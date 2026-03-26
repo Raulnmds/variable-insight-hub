@@ -130,17 +130,28 @@ const SalaryOverview = () => {
                       </span>
                     )}
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-xmd">
-                    {cat.cuts.map((cut) => (
-                      <OverviewChartCard
-                        key={`${cat.id}-${cut.label}`}
-                        title={cat.title}
-                        cut={cut}
-                        clickable={isVariable}
-                        onClick={isVariable ? goToVariableDashboard : undefined}
-                      />
-                    ))}
-                  </div>
+                  {isVariable ? (
+                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-xmd">
+                      {variablePayStackedCuts.map((stackedCut) => (
+                        <OverviewStackedChartCard
+                          key={`stacked-${stackedCut.label}`}
+                          cut={stackedCut}
+                          clickable
+                          onClick={goToVariableDashboard}
+                        />
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-xmd">
+                      {cat.cuts.map((cut) => (
+                        <OverviewChartCard
+                          key={`${cat.id}-${cut.label}`}
+                          title={cat.title}
+                          cut={cut}
+                        />
+                      ))}
+                    </div>
+                  )}
                 </section>
               );
             })}
