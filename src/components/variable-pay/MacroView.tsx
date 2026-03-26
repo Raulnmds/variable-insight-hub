@@ -183,7 +183,7 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
                   <p className="text-small text-muted-foreground uppercase tracking-wider mb-xxs">Posição</p>
                 </IndicatorTooltip>
                 <div className={`flex items-center justify-center gap-xxs text-label-bold ${
-                  totalStatus === 'acima' ? 'text-positive' : totalStatus === 'abaixo' ? 'text-negative' : 'text-primary'
+                  totalStatus === 'abaixo' ? 'text-negative' : 'text-foreground'
                 }`}>
                   <StatusIndicator status={totalStatus} />
                   {totalStatus === 'acima' ? 'Acima' : totalStatus === 'abaixo' ? 'Abaixo' : 'Alinhado'}
