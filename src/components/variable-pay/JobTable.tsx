@@ -76,9 +76,8 @@ export function JobTable({ jobs, data, filters, onSelectJob }: JobTableProps) {
                 <TableHead className="text-label-bold-caps text-muted-foreground py-sm-space px-default-space">Cargo</TableHead>
                 <TableHead className="text-label-bold-caps text-muted-foreground py-sm-space px-default-space">Família</TableHead>
                 <TableHead className="text-label-bold-caps text-muted-foreground py-sm-space px-default-space">Nível</TableHead>
-                {!isManager && <TableHead className="text-label-bold-caps text-muted-foreground py-sm-space px-default-space text-right"><IndicatorTooltip tooltipKey="p50Empresa">P50 Emp.</IndicatorTooltip></TableHead>}
-                {!isManager && <TableHead className="text-label-bold-caps text-muted-foreground py-sm-space px-default-space text-right"><IndicatorTooltip tooltipKey="p50Mercado">P50 Mkt.</IndicatorTooltip></TableHead>}
-                <TableHead className="text-label-bold-caps text-muted-foreground py-sm-space px-default-space text-right"><IndicatorTooltip tooltipKey="indice">Índice</IndicatorTooltip></TableHead>
+                {!isManager && <TableHead className="text-label-bold-caps text-chart-company py-sm-space px-default-space text-right"><IndicatorTooltip tooltipKey="p50Empresa">P50 Empresa</IndicatorTooltip></TableHead>}
+                {!isManager && <TableHead className="text-label-bold-caps text-chart-market py-sm-space px-default-space text-right"><IndicatorTooltip tooltipKey="p50Mercado">P50 Mercado</IndicatorTooltip></TableHead>}
                 <TableHead className="text-label-bold-caps text-muted-foreground py-sm-space px-default-space text-right cursor-pointer" onClick={() => setSortAsc(!sortAsc)}>
                   <IndicatorTooltip tooltipKey="deltaPct">
                     <span className="inline-flex items-center gap-xxs">
