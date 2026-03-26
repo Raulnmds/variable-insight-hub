@@ -140,7 +140,7 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
                   <IndicatorTooltip tooltipKey="p50Mercado" showIcon>
                     <p className="text-small text-chart-market uppercase tracking-widest mb-xxs">P50 Mercado</p>
                   </IndicatorTooltip>
-                  <p className="text-[32px] font-bold tabular-nums tracking-tight text-chart-market font-heading">
+                  <p className={`text-[32px] font-bold tabular-nums tracking-tight font-heading ${totalMkt.p50 >= totalEmp.p50 ? 'text-chart-market' : 'text-chart-market/50'}`}>
                     {isManager ? '••••' : formatBRL(totalMkt.p50)}
                   </p>
                 </div>
@@ -148,7 +148,7 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
                   <IndicatorTooltip tooltipKey="p50Empresa" showIcon>
                     <p className="text-small text-chart-company uppercase tracking-widest mb-xxs">P50 Empresa</p>
                   </IndicatorTooltip>
-                  <p className="text-h2-bold tabular-nums text-chart-company">
+                  <p className={`text-[32px] font-bold tabular-nums tracking-tight font-heading ${totalEmp.p50 >= totalMkt.p50 ? 'text-chart-company' : 'text-chart-company/50'}`}>
                     {isManager ? '••••' : formatBRL(totalEmp.p50)}
                   </p>
                 </div>
