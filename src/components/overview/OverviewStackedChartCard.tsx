@@ -175,8 +175,6 @@ export function OverviewStackedChartCard({ cut, clickable, onClick }: Props) {
                 maxBarSize={28}
               />
             ))}
-              />
-            ))}
           </BarChart>
         </ResponsiveContainer>
 
