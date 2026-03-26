@@ -20,16 +20,11 @@ const defaultFilters: Omit<Filters, 'viewMode' | 'userRole'> = {
 
 export function FilterBar({ filters, onFiltersChange }: FilterBarProps) {
   const update = (patch: Partial<Filters>) => onFiltersChange({ ...filters, ...patch });
-  const activeCount = [filters.area, filters.familia, filters.nivel, filters.localidade].filter(Boolean).length;
+  const activeCount = 0;
 
   const clearAll = () => onFiltersChange({ ...filters, ...defaultFilters, ano: 2025 });
 
-  const appliedChips = [
-    filters.area && { label: `Área: ${filters.area}`, clear: () => update({ area: '' }) },
-    filters.familia && { label: `Família: ${filters.familia}`, clear: () => update({ familia: '' }) },
-    filters.nivel && { label: `Nível: ${filters.nivel}`, clear: () => update({ nivel: '' }) },
-    filters.localidade && { label: `Local: ${filters.localidade}`, clear: () => update({ localidade: '' }) },
-  ].filter(Boolean) as { label: string; clear: () => void }[];
+  const appliedChips: { label: string; clear: () => void }[] = [];
 
   return (
     <div className="border-b border-border bg-card px-xmd py-sm-space space-y-xs shadow-dp01">
