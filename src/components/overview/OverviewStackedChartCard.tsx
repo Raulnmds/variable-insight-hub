@@ -111,9 +111,9 @@ export function OverviewStackedChartCard({ cut, clickable, onClick }: Props) {
           )}
         </div>
 
-        {/* Legend — group indicators + variable names */}
-        <div className="flex flex-col gap-1 mb-sm-space">
-          {/* Group indicators: Mercado / Empresa */}
+        {/* Legend */}
+        <div className="flex flex-col gap-1.5 mb-sm-space">
+          {/* Group indicators */}
           <div className="flex items-center gap-default-space">
             <div className="flex items-center gap-xxs">
               <span className="w-3 h-3 rounded-sm" style={{ backgroundColor: MERCADO_COLORS['bonus'] }} />
@@ -124,14 +124,13 @@ export function OverviewStackedChartCard({ cut, clickable, onClick }: Props) {
               <span className="text-small text-muted-foreground">Empresa</span>
             </div>
           </div>
-          {/* Variable component names */}
+          {/* Variable names with both color swatches */}
           <div className="flex items-center gap-sm-space">
             {COMPONENTS.map(({ key, label: l }) => (
-              <div key={key} className="flex items-center gap-xxs">
+              <div key={key} className="flex items-center gap-1">
+                <span className="w-2 h-2 rounded-[2px]" style={{ backgroundColor: MERCADO_COLORS[key] }} />
+                <span className="w-2 h-2 rounded-[2px]" style={{ backgroundColor: EMPRESA_COLORS[key] }} />
                 <span className="text-small text-muted-foreground">{l}</span>
-                <span className="text-[10px] text-muted-foreground/60">
-                  ({['900','700','500','300'][COMPONENTS.findIndex(c => c.key === key)]})
-                </span>
               </div>
             ))}
           </div>
