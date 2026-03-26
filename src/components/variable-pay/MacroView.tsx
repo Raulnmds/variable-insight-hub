@@ -139,18 +139,18 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
               <div className="flex items-end gap-xmd flex-wrap">
                 <div>
                   <IndicatorTooltip tooltipKey="p50Empresa" showIcon>
-                    <p className="text-small text-muted-foreground uppercase tracking-widest mb-xxs">P50 Empresa</p>
+                    <p className="text-small text-chart-company uppercase tracking-widest mb-xxs">P50 Empresa</p>
                   </IndicatorTooltip>
-                  <p className="text-[32px] font-bold tabular-nums tracking-tight text-foreground font-heading">
+                  <p className="text-[32px] font-bold tabular-nums tracking-tight text-chart-company font-heading">
                     {isManager ? '••••' : formatBRL(totalEmp.p50)}
                   </p>
                 </div>
                 <div className="pb-1">
                   <IndicatorTooltip tooltipKey="p50Mercado" showIcon>
-                    <p className="text-small text-muted-foreground uppercase tracking-widest mb-xxs">P50 Mercado</p>
+                    <p className="text-small text-chart-market uppercase tracking-widest mb-xxs">P50 Mercado</p>
                   </IndicatorTooltip>
-                  <p className="text-h2-bold tabular-nums text-grayscale-70">
-                    {isManager ? '••••' : formatBRL(totalMkt.p50)}
+                  <p className="text-h2-bold tabular-nums text-chart-market">
+                    {isManager ? '••••' : <>{formatBRL(totalMkt.p50)} <span className="text-small font-normal">mercado</span></>}
                   </p>
                 </div>
               </div>
@@ -167,7 +167,7 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
             </div>
 
             {/* Right: KPI cards */}
-            <div className="grid grid-cols-2 gap-sm-space lg:w-[300px]">
+            <div className="grid grid-cols-3 gap-sm-space lg:w-[340px]">
               <div className="rounded-lg bg-grayscale-5 border border-border p-default-space text-center">
                 <IndicatorTooltip tooltipKey="deltaPct" showIcon>
                   <p className="text-small text-muted-foreground uppercase tracking-wider mb-xxs">Δ%</p>
@@ -177,12 +177,6 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
                 }`}>
                   {formatPct(totalDeltaPct)}
                 </p>
-              </div>
-              <div className="rounded-lg bg-grayscale-5 border border-border p-default-space text-center">
-                <IndicatorTooltip tooltipKey="indice" showIcon>
-                  <p className="text-small text-muted-foreground uppercase tracking-wider mb-xxs">Índice</p>
-                </IndicatorTooltip>
-                <p className="text-h2-bold tabular-nums text-foreground">{totalIndice.toFixed(2)}</p>
               </div>
               <div className="rounded-lg bg-grayscale-5 border border-border p-default-space text-center">
                 <IndicatorTooltip tooltipKey="posicao" showIcon>
@@ -199,7 +193,7 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
                 <IndicatorTooltip tooltipKey="mediaEmpresa" showIcon>
                   <p className="text-small text-muted-foreground uppercase tracking-wider mb-xxs">Média Emp.</p>
                 </IndicatorTooltip>
-                <p className="text-label-bold tabular-nums text-foreground">
+                <p className="text-label-bold tabular-nums text-chart-company">
                   {isManager ? '••••' : formatBRL(totalEmp.media)}
                 </p>
               </div>
@@ -226,10 +220,10 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
                     <p className="text-small text-muted-foreground uppercase tracking-wider">{STAT_LABELS[key]}</p>
                   </IndicatorTooltip>
                   {!isManager && (
-                    <p className="text-label-bold tabular-nums mt-xxs">{formatBRL(emp)}</p>
+                    <p className="text-label-bold tabular-nums mt-xxs text-chart-company">{formatBRL(emp)}</p>
                   )}
                   {!isManager && (
-                    <p className="text-small text-muted-foreground tabular-nums">vs {formatBRL(mkt)}</p>
+                    <p className="text-small text-chart-market tabular-nums">vs {formatBRL(mkt)} mercado</p>
                   )}
                   <p className={`text-small-bold tabular-nums ${color}`}>{formatPct(pct)}</p>
                 </div>
@@ -284,9 +278,9 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
                   {!isManager && (
                     <div>
                       <IndicatorTooltip tooltipKey="p50">
-                        <p className="text-h2-bold tabular-nums text-foreground">{formatBRL(emp.p50)}</p>
+                        <p className="text-h2-bold tabular-nums text-chart-company">{formatBRL(emp.p50)}</p>
                       </IndicatorTooltip>
-                      <p className="text-small text-muted-foreground tabular-nums">vs {formatBRL(mkt.p50)} mercado</p>
+                      <p className="text-small text-chart-market tabular-nums">vs {formatBRL(mkt.p50)} mercado</p>
                     </div>
                   )}
 
@@ -299,12 +293,6 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
                       <p className={`text-label-bold tabular-nums ${
                         pct > 5 ? 'text-positive' : pct < -5 ? 'text-negative' : 'text-warning'
                       }`}>{formatPct(pct)}</p>
-                    </div>
-                    <div className="text-center">
-                      <IndicatorTooltip tooltipKey="indice">
-                        <p className="text-small text-muted-foreground uppercase tracking-wider">Índice</p>
-                      </IndicatorTooltip>
-                      <p className="text-label-bold tabular-nums text-foreground">{indice.toFixed(2)}</p>
                     </div>
                     <div className="text-right">
                       <IndicatorTooltip tooltipKey="posicao">

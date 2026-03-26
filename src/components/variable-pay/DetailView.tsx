@@ -115,7 +115,7 @@ export function DetailView({ type, filters, onBack }: DetailViewProps) {
           </div>
 
           {/* KPI row */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-sm-space">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-sm-space">
             <div className="rounded-lg bg-primary-foreground/10 p-default-space">
               <IndicatorTooltip tooltipKey="p50Empresa" showIcon>
                 <p className="text-small text-primary-foreground/50 uppercase tracking-wider mb-xxs">P50 Empresa</p>
@@ -126,25 +126,15 @@ export function DetailView({ type, filters, onBack }: DetailViewProps) {
               <IndicatorTooltip tooltipKey="p50Mercado" showIcon>
                 <p className="text-small text-primary-foreground/50 uppercase tracking-wider mb-xxs">P50 Mercado</p>
               </IndicatorTooltip>
-              <p className="text-h2-bold tabular-nums text-primary-foreground/80">{isManager ? '••••' : formatBRL(aggMercado.p50)}</p>
+              <p className="text-h2-bold tabular-nums text-primary-foreground/80">{isManager ? '••••' : <>{formatBRL(aggMercado.p50)} <span className="text-small font-normal">mercado</span></>}</p>
             </div>
             <div className="rounded-lg bg-primary-foreground/10 p-default-space">
               <IndicatorTooltip tooltipKey="deltaPct" showIcon>
                 <p className="text-small text-primary-foreground/50 uppercase tracking-wider mb-xxs">Δ%</p>
               </IndicatorTooltip>
-              <p className={`text-h2-bold tabular-nums ${
-                deltaPct > 5 ? 'text-primary-foreground' : deltaPct < -5 ? 'text-primary-foreground' : 'text-primary-foreground'
-              }`}>{formatPct(deltaPct)}</p>
-            </div>
-            <div className="rounded-lg bg-primary-foreground/10 p-default-space">
-              <IndicatorTooltip tooltipKey="indice" showIcon>
-                <p className="text-small text-primary-foreground/50 uppercase tracking-wider mb-xxs">Índice</p>
-              </IndicatorTooltip>
               <div className="flex items-center gap-xs">
-                <p className="text-h2-bold tabular-nums text-primary-foreground">{formatIndice(indice)}</p>
-                <span className={`flex items-center text-small ${
-                  status === 'acima' ? 'text-primary-foreground' : status === 'abaixo' ? 'text-primary-foreground' : 'text-primary-foreground'
-                }`}>
+                <p className="text-h2-bold tabular-nums text-primary-foreground">{formatPct(deltaPct)}</p>
+                <span className="flex items-center text-small text-primary-foreground">
                   {status === 'acima' ? <TrendingUp className="h-3.5 w-3.5" /> : status === 'abaixo' ? <TrendingDown className="h-3.5 w-3.5" /> : <Minus className="h-3.5 w-3.5" />}
                 </span>
               </div>

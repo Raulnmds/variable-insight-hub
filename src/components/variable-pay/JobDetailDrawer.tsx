@@ -51,11 +51,6 @@ export function JobDetailDrawer({ open, onClose, job, data, filters }: JobDetail
                 {status === 'acima' ? '↑ Acima do mercado' : status === 'abaixo' ? '↓ Abaixo do mercado' : '→ Alinhado ao mercado'}
               </Badge>
             </IndicatorTooltip>
-            <IndicatorTooltip tooltipKey="indice">
-              <span className="text-label text-muted-foreground">
-                Índice: <span className="font-mono text-label-bold">{calcIndice(emp.p50, mkt.p50).toFixed(2)}</span>
-              </span>
-            </IndicatorTooltip>
           </div>
 
           {/* Chart */}
@@ -74,8 +69,8 @@ export function JobDetailDrawer({ open, onClose, job, data, filters }: JobDetail
                 <thead>
                   <tr className="bg-grayscale-5 border-b border-border">
                     <th className="text-left py-sm-space px-default-space text-label-bold-caps text-muted-foreground">Stat</th>
-                    {!isManager && <th className="text-right py-sm-space px-default-space text-label-bold-caps text-muted-foreground">Empresa</th>}
-                    {!isManager && <th className="text-right py-sm-space px-default-space text-label-bold-caps text-muted-foreground">Mercado</th>}
+                    {!isManager && <th className="text-right py-sm-space px-default-space text-label-bold-caps text-chart-company">Empresa</th>}
+                    {!isManager && <th className="text-right py-sm-space px-default-space text-label-bold-caps text-chart-market">Mercado</th>}
                     {!isManager && (
                       <th className="text-right py-sm-space px-default-space text-label-bold-caps text-muted-foreground">
                         <IndicatorTooltip tooltipKey="delta">Δ</IndicatorTooltip>
@@ -83,9 +78,6 @@ export function JobDetailDrawer({ open, onClose, job, data, filters }: JobDetail
                     )}
                     <th className="text-right py-sm-space px-default-space text-label-bold-caps text-muted-foreground">
                       <IndicatorTooltip tooltipKey="deltaPct">Δ%</IndicatorTooltip>
-                    </th>
-                    <th className="text-right py-sm-space px-default-space text-label-bold-caps text-muted-foreground">
-                      <IndicatorTooltip tooltipKey="indice">Índice</IndicatorTooltip>
                     </th>
                   </tr>
                 </thead>
@@ -100,11 +92,10 @@ export function JobDetailDrawer({ open, onClose, job, data, filters }: JobDetail
                         <td className="py-sm-space px-default-space text-label-bold">
                           <IndicatorTooltip tooltipKey={statTooltipKeys[key]}>{STAT_LABELS[key]}</IndicatorTooltip>
                         </td>
-                        {!isManager && <td className="text-right py-sm-space px-default-space tabular-nums">{formatBRL(emp[key])}</td>}
-                        {!isManager && <td className="text-right py-sm-space px-default-space tabular-nums">{formatBRL(mkt[key])}</td>}
+                        {!isManager && <td className="text-right py-sm-space px-default-space tabular-nums text-chart-company">{formatBRL(emp[key])}</td>}
+                        {!isManager && <td className="text-right py-sm-space px-default-space tabular-nums text-chart-market">{formatBRL(mkt[key])}</td>}
                         {!isManager && <td className={`text-right py-sm-space px-default-space tabular-nums ${color}`}>{formatBRL(delta)}</td>}
                         <td className={`text-right py-sm-space px-default-space tabular-nums ${color}`}>{formatPct(pct)}</td>
-                        <td className="text-right py-sm-space px-default-space tabular-nums">{idx.toFixed(2)}</td>
                       </tr>
                     );
                   })}

@@ -76,9 +76,8 @@ export function JobTable({ jobs, data, filters, onSelectJob }: JobTableProps) {
                 <TableHead className="text-label-bold-caps text-muted-foreground py-sm-space px-default-space">Cargo</TableHead>
                 <TableHead className="text-label-bold-caps text-muted-foreground py-sm-space px-default-space">Família</TableHead>
                 <TableHead className="text-label-bold-caps text-muted-foreground py-sm-space px-default-space">Nível</TableHead>
-                {!isManager && <TableHead className="text-label-bold-caps text-muted-foreground py-sm-space px-default-space text-right"><IndicatorTooltip tooltipKey="p50Empresa">P50 Emp.</IndicatorTooltip></TableHead>}
-                {!isManager && <TableHead className="text-label-bold-caps text-muted-foreground py-sm-space px-default-space text-right"><IndicatorTooltip tooltipKey="p50Mercado">P50 Mkt.</IndicatorTooltip></TableHead>}
-                <TableHead className="text-label-bold-caps text-muted-foreground py-sm-space px-default-space text-right"><IndicatorTooltip tooltipKey="indice">Índice</IndicatorTooltip></TableHead>
+                {!isManager && <TableHead className="text-label-bold-caps text-chart-company py-sm-space px-default-space text-right"><IndicatorTooltip tooltipKey="p50Empresa">P50 Empresa</IndicatorTooltip></TableHead>}
+                {!isManager && <TableHead className="text-label-bold-caps text-chart-market py-sm-space px-default-space text-right"><IndicatorTooltip tooltipKey="p50Mercado">P50 Mercado</IndicatorTooltip></TableHead>}
                 <TableHead className="text-label-bold-caps text-muted-foreground py-sm-space px-default-space text-right cursor-pointer" onClick={() => setSortAsc(!sortAsc)}>
                   <IndicatorTooltip tooltipKey="deltaPct">
                     <span className="inline-flex items-center gap-xxs">
@@ -92,7 +91,7 @@ export function JobTable({ jobs, data, filters, onSelectJob }: JobTableProps) {
             <TableBody>
               {paged.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={isManager ? 5 : 7} className="text-center py-xxbig text-label text-muted-foreground">
+                  <TableCell colSpan={isManager ? 4 : 6} className="text-center py-xxbig text-label text-muted-foreground">
                     Nenhum cargo encontrado para os filtros selecionados.
                   </TableCell>
                 </TableRow>
@@ -109,9 +108,8 @@ export function JobTable({ jobs, data, filters, onSelectJob }: JobTableProps) {
                       <TableCell className="text-label font-medium py-sm-space px-default-space">{row.job.nome}</TableCell>
                       <TableCell className="text-small text-muted-foreground py-sm-space px-default-space">{row.job.familia}</TableCell>
                       <TableCell className="text-small text-muted-foreground py-sm-space px-default-space">{row.job.nivel}</TableCell>
-                      {!isManager && <TableCell className="text-label text-right tabular-nums py-sm-space px-default-space">{formatBRL(row.emp.p50)}</TableCell>}
-                      {!isManager && <TableCell className="text-label text-right tabular-nums py-sm-space px-default-space">{formatBRL(row.mkt.p50)}</TableCell>}
-                      <TableCell className="text-label text-right tabular-nums py-sm-space px-default-space">{formatIndice(row.indice)}</TableCell>
+                      {!isManager && <TableCell className="text-label text-right tabular-nums py-sm-space px-default-space text-chart-company">{formatBRL(row.emp.p50)}</TableCell>}
+                      {!isManager && <TableCell className="text-label text-right tabular-nums py-sm-space px-default-space text-chart-market">{formatBRL(row.mkt.p50)}</TableCell>}
                       <TableCell className={`text-label text-right tabular-nums font-bold py-sm-space px-default-space ${deltaColor}`}>
                         {formatPct(row.deltaPct)}
                       </TableCell>
