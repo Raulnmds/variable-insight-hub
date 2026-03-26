@@ -7,6 +7,7 @@ import { getAggregatedComparisons, applyViewMode, calcDeltaPct, calcIndice, getP
 import { TrendingUp, TrendingDown, Minus, Download, FileText, ArrowRight, DollarSign, Target, BarChart3, Award, Sparkles } from 'lucide-react';
 import { toast } from 'sonner';
 import { IndicatorTooltip } from './IndicatorTooltip';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 interface MacroViewProps {
   filters: Filters;
