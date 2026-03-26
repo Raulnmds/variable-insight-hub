@@ -167,7 +167,7 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
             </div>
 
             {/* Right: KPI cards */}
-            <div className="grid grid-cols-2 gap-sm-space lg:w-[300px]">
+            <div className="grid grid-cols-3 gap-sm-space lg:w-[340px]">
               <div className="rounded-lg bg-grayscale-5 border border-border p-default-space text-center">
                 <IndicatorTooltip tooltipKey="deltaPct" showIcon>
                   <p className="text-small text-muted-foreground uppercase tracking-wider mb-xxs">Δ%</p>
@@ -177,12 +177,6 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
                 }`}>
                   {formatPct(totalDeltaPct)}
                 </p>
-              </div>
-              <div className="rounded-lg bg-grayscale-5 border border-border p-default-space text-center">
-                <IndicatorTooltip tooltipKey="indice" showIcon>
-                  <p className="text-small text-muted-foreground uppercase tracking-wider mb-xxs">Índice</p>
-                </IndicatorTooltip>
-                <p className="text-h2-bold tabular-nums text-foreground">{totalIndice.toFixed(2)}</p>
               </div>
               <div className="rounded-lg bg-grayscale-5 border border-border p-default-space text-center">
                 <IndicatorTooltip tooltipKey="posicao" showIcon>
@@ -199,7 +193,7 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
                 <IndicatorTooltip tooltipKey="mediaEmpresa" showIcon>
                   <p className="text-small text-muted-foreground uppercase tracking-wider mb-xxs">Média Emp.</p>
                 </IndicatorTooltip>
-                <p className="text-label-bold tabular-nums text-foreground">
+                <p className="text-label-bold tabular-nums text-chart-company">
                   {isManager ? '••••' : formatBRL(totalEmp.media)}
                 </p>
               </div>
