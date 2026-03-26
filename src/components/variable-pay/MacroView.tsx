@@ -125,6 +125,9 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
                 <Badge variant="secondary" className="text-small tracking-wider uppercase mb-1">
                   Visão Consolidada
                 </Badge>
+                <p className="text-small text-muted-foreground mt-xxs">
+                  {[filters.familia || 'Todos os cargos', filters.nivel || 'Todos os níveis', filters.area || 'Todos os segmentos'].join(' - ')}
+                </p>
                 <h2 className="text-h2-bold text-foreground">Total Remuneração Variável</h2>
               </div>
 
