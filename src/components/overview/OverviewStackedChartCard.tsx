@@ -111,23 +111,27 @@ export function OverviewStackedChartCard({ cut, clickable, onClick }: Props) {
           )}
         </div>
 
-        {/* Legend */}
-        <div className="flex items-center gap-default-space mb-sm-space flex-wrap">
-          <div className="flex items-center gap-xs">
-            <span className="text-small font-bold text-muted-foreground">Mercado:</span>
-            {COMPONENTS.map(({ key, label: l }) => (
-              <div key={`m-${key}`} className="flex items-center gap-xxs">
-                <span className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: MERCADO_COLORS[key] }} />
-                <span className="text-small text-muted-foreground">{l}</span>
-              </div>
-            ))}
+        {/* Legend — group indicators + variable names */}
+        <div className="flex flex-col gap-1 mb-sm-space">
+          {/* Group indicators: Mercado / Empresa */}
+          <div className="flex items-center gap-default-space">
+            <div className="flex items-center gap-xxs">
+              <span className="w-3 h-3 rounded-sm" style={{ backgroundColor: MERCADO_COLORS['bonus'] }} />
+              <span className="text-small text-muted-foreground">Mercado</span>
+            </div>
+            <div className="flex items-center gap-xxs">
+              <span className="w-3 h-3 rounded-sm" style={{ backgroundColor: EMPRESA_COLORS['bonus'] }} />
+              <span className="text-small text-muted-foreground">Empresa</span>
+            </div>
           </div>
-          <div className="flex items-center gap-xs">
-            <span className="text-small font-bold text-muted-foreground">Empresa:</span>
+          {/* Variable component names */}
+          <div className="flex items-center gap-sm-space">
             {COMPONENTS.map(({ key, label: l }) => (
-              <div key={`e-${key}`} className="flex items-center gap-xxs">
-                <span className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: EMPRESA_COLORS[key] }} />
+              <div key={key} className="flex items-center gap-xxs">
                 <span className="text-small text-muted-foreground">{l}</span>
+                <span className="text-[10px] text-muted-foreground/60">
+                  ({['900','700','500','300'][COMPONENTS.findIndex(c => c.key === key)]})
+                </span>
               </div>
             ))}
           </div>
