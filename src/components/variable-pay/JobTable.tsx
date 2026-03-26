@@ -108,9 +108,8 @@ export function JobTable({ jobs, data, filters, onSelectJob }: JobTableProps) {
                       <TableCell className="text-label font-medium py-sm-space px-default-space">{row.job.nome}</TableCell>
                       <TableCell className="text-small text-muted-foreground py-sm-space px-default-space">{row.job.familia}</TableCell>
                       <TableCell className="text-small text-muted-foreground py-sm-space px-default-space">{row.job.nivel}</TableCell>
-                      {!isManager && <TableCell className="text-label text-right tabular-nums py-sm-space px-default-space">{formatBRL(row.emp.p50)}</TableCell>}
-                      {!isManager && <TableCell className="text-label text-right tabular-nums py-sm-space px-default-space">{formatBRL(row.mkt.p50)}</TableCell>}
-                      <TableCell className="text-label text-right tabular-nums py-sm-space px-default-space">{formatIndice(row.indice)}</TableCell>
+                      {!isManager && <TableCell className="text-label text-right tabular-nums py-sm-space px-default-space text-chart-company">{formatBRL(row.emp.p50)}</TableCell>}
+                      {!isManager && <TableCell className="text-label text-right tabular-nums py-sm-space px-default-space text-chart-market">{formatBRL(row.mkt.p50)}</TableCell>}
                       <TableCell className={`text-label text-right tabular-nums font-bold py-sm-space px-default-space ${deltaColor}`}>
                         {formatPct(row.deltaPct)}
                       </TableCell>
