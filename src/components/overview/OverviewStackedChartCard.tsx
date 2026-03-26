@@ -112,21 +112,24 @@ export function OverviewStackedChartCard({ cut, clickable, onClick }: Props) {
         </div>
 
         {/* Legend */}
-        <div className="flex items-center gap-default-space mb-sm-space flex-wrap">
-          <div className="flex items-center gap-xs">
-            <span className="text-small font-bold text-muted-foreground">Mercado:</span>
-            {COMPONENTS.map(({ key, label: l }) => (
-              <div key={`m-${key}`} className="flex items-center gap-xxs">
-                <span className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: MERCADO_COLORS[key] }} />
-                <span className="text-small text-muted-foreground">{l}</span>
-              </div>
-            ))}
+        <div className="flex flex-col gap-1.5 mb-sm-space">
+          {/* Group indicators */}
+          <div className="flex items-center gap-default-space">
+            <div className="flex items-center gap-xxs">
+              <span className="w-3 h-3 rounded-sm" style={{ backgroundColor: MERCADO_COLORS['bonus'] }} />
+              <span className="text-small text-muted-foreground">Mercado</span>
+            </div>
+            <div className="flex items-center gap-xxs">
+              <span className="w-3 h-3 rounded-sm" style={{ backgroundColor: EMPRESA_COLORS['bonus'] }} />
+              <span className="text-small text-muted-foreground">Empresa</span>
+            </div>
           </div>
-          <div className="flex items-center gap-xs">
-            <span className="text-small font-bold text-muted-foreground">Empresa:</span>
+          {/* Variable names with both color swatches */}
+          <div className="flex items-center gap-sm-space">
             {COMPONENTS.map(({ key, label: l }) => (
-              <div key={`e-${key}`} className="flex items-center gap-xxs">
-                <span className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: EMPRESA_COLORS[key] }} />
+              <div key={key} className="flex items-center gap-1">
+                <span className="w-2 h-2 rounded-[2px]" style={{ backgroundColor: MERCADO_COLORS[key] }} />
+                <span className="w-2 h-2 rounded-[2px]" style={{ backgroundColor: EMPRESA_COLORS[key] }} />
                 <span className="text-small text-muted-foreground">{l}</span>
               </div>
             ))}
