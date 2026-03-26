@@ -115,9 +115,8 @@ export function JobTable({ jobs, data, filters, onSelectJob }: JobTableProps) {
                       </TableCell>
                       <TableCell className="text-center py-sm-space px-default-space">
                         <Badge variant="outline" className={`text-small ${
-                          status === 'acima' ? 'bg-positive/10 text-positive border-positive/20' :
                           status === 'abaixo' ? 'bg-negative/10 text-negative border-negative/20' :
-                          'bg-warning/10 text-warning border-warning/20'
+                          'bg-grayscale-10 text-foreground border-border'
                         }`}>
                           {status === 'acima' ? 'Acima' : status === 'abaixo' ? 'Abaixo' : 'Alinhado'}
                         </Badge>
