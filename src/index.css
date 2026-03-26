@@ -66,8 +66,8 @@
     --alert-foreground: 0 0% 100%;
 
     /* Chart */
-    --chart-company: 210 56% 60%;
-    --chart-market: 152 83% 36%;
+    --chart-company: 152 83% 36%;
+    --chart-market: 210 56% 60%;
 
     /* Sidebar */
     --sidebar-background: 0 0% 100%;
