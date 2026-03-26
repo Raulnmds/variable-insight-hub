@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Filters, VariablePayType, VARIABLE_PAY_LABELS, Job } from '@/types/variablePay';
 import { filterJobs, getDataForJobs, applyViewMode, calcDeltaPct, calcIndice, formatBRL, formatPct, formatIndice, exportToCSV, getPositionStatus } from '@/lib/variablePayUtils';
