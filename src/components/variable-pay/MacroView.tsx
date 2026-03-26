@@ -139,18 +139,18 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
               <div className="flex items-end gap-xmd flex-wrap">
                 <div>
                   <IndicatorTooltip tooltipKey="p50Empresa" showIcon>
-                    <p className="text-small text-muted-foreground uppercase tracking-widest mb-xxs">P50 Empresa</p>
+                    <p className="text-small text-chart-company uppercase tracking-widest mb-xxs">P50 Empresa</p>
                   </IndicatorTooltip>
-                  <p className="text-[32px] font-bold tabular-nums tracking-tight text-foreground font-heading">
+                  <p className="text-[32px] font-bold tabular-nums tracking-tight text-chart-company font-heading">
                     {isManager ? '••••' : formatBRL(totalEmp.p50)}
                   </p>
                 </div>
                 <div className="pb-1">
                   <IndicatorTooltip tooltipKey="p50Mercado" showIcon>
-                    <p className="text-small text-muted-foreground uppercase tracking-widest mb-xxs">P50 Mercado</p>
+                    <p className="text-small text-chart-market uppercase tracking-widest mb-xxs">P50 Mercado</p>
                   </IndicatorTooltip>
-                  <p className="text-h2-bold tabular-nums text-grayscale-70">
-                    {isManager ? '••••' : formatBRL(totalMkt.p50)}
+                  <p className="text-h2-bold tabular-nums text-chart-market">
+                    {isManager ? '••••' : <>{formatBRL(totalMkt.p50)} <span className="text-small font-normal">mercado</span></>}
                   </p>
                 </div>
               </div>
