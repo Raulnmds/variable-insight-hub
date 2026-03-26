@@ -69,8 +69,8 @@ export function JobDetailDrawer({ open, onClose, job, data, filters }: JobDetail
                 <thead>
                   <tr className="bg-grayscale-5 border-b border-border">
                     <th className="text-left py-sm-space px-default-space text-label-bold-caps text-muted-foreground">Stat</th>
-                    {!isManager && <th className="text-right py-sm-space px-default-space text-label-bold-caps text-muted-foreground">Empresa</th>}
-                    {!isManager && <th className="text-right py-sm-space px-default-space text-label-bold-caps text-muted-foreground">Mercado</th>}
+                    {!isManager && <th className="text-right py-sm-space px-default-space text-label-bold-caps text-chart-company">Empresa</th>}
+                    {!isManager && <th className="text-right py-sm-space px-default-space text-label-bold-caps text-chart-market">Mercado</th>}
                     {!isManager && (
                       <th className="text-right py-sm-space px-default-space text-label-bold-caps text-muted-foreground">
                         <IndicatorTooltip tooltipKey="delta">Δ</IndicatorTooltip>
@@ -78,9 +78,6 @@ export function JobDetailDrawer({ open, onClose, job, data, filters }: JobDetail
                     )}
                     <th className="text-right py-sm-space px-default-space text-label-bold-caps text-muted-foreground">
                       <IndicatorTooltip tooltipKey="deltaPct">Δ%</IndicatorTooltip>
-                    </th>
-                    <th className="text-right py-sm-space px-default-space text-label-bold-caps text-muted-foreground">
-                      <IndicatorTooltip tooltipKey="indice">Índice</IndicatorTooltip>
                     </th>
                   </tr>
                 </thead>
