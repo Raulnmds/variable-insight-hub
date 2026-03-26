@@ -260,13 +260,7 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
                   </div>
 
                   {/* Position bar */}
-                  <div>
-                    <div className="flex items-center justify-between text-small text-muted-foreground mb-xxs uppercase tracking-wider">
-                      <span className="text-[10px]">Abaixo</span>
-                      <span className="text-[10px]">Acima</span>
-                    </div>
-                    <PositionBar empresa={emp.p50} mercado={mkt.p50} />
-                  </div>
+                  <PositionBar empresa={emp.p50} mercado={mkt.p50} />
 
                   {/* Main metric */}
                   {!isManager && (
