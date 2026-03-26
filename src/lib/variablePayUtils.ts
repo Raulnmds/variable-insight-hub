@@ -100,8 +100,8 @@ export function calcIndice(empresa: number, mercado: number): number {
 
 export function getPositionStatus(empresa: number, mercado: number): PositionStatus {
   const pct = calcDeltaPct(empresa, mercado);
-  if (pct > 5) return 'acima';
-  if (pct < -5) return 'abaixo';
+  if (pct > 20) return 'acima';
+  if (pct < -20) return 'abaixo';
   return 'alinhado';
 }
 
