@@ -148,7 +148,7 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
                   <IndicatorTooltip tooltipKey="p50Empresa" showIcon>
                     <p className="text-small text-chart-company uppercase tracking-widest mb-xxs">P50 Empresa</p>
                   </IndicatorTooltip>
-                  <p className={`text-[32px] font-bold tabular-nums tracking-tight font-heading ${totalEmp.p50 >= totalMkt.p50 ? 'text-chart-company' : 'text-chart-company/50'}`}>
+                  <p className="text-[32px] font-bold tabular-nums tracking-tight font-heading text-chart-company">
                     {isManager ? '••••' : formatBRL(totalEmp.p50)}
                   </p>
                 </div>
