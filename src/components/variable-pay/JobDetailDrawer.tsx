@@ -51,11 +51,6 @@ export function JobDetailDrawer({ open, onClose, job, data, filters }: JobDetail
                 {status === 'acima' ? '↑ Acima do mercado' : status === 'abaixo' ? '↓ Abaixo do mercado' : '→ Alinhado ao mercado'}
               </Badge>
             </IndicatorTooltip>
-            <IndicatorTooltip tooltipKey="indice">
-              <span className="text-label text-muted-foreground">
-                Índice: <span className="font-mono text-label-bold">{calcIndice(emp.p50, mkt.p50).toFixed(2)}</span>
-              </span>
-            </IndicatorTooltip>
           </div>
 
           {/* Chart */}
