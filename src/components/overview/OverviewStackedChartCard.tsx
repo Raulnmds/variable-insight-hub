@@ -77,10 +77,10 @@ export function OverviewStackedChartCard({ cut, clickable, onClick }: Props) {
         <div className="grid grid-cols-2 gap-x-4 gap-y-0.5">
           <span className="text-muted-foreground font-bold">Mercado</span>
           <span className="text-muted-foreground font-bold">Empresa</span>
-          {COMPONENTS.map(({ key, label: compLabel, color }) => (
+          {COMPONENTS.map(({ key, label: compLabel }) => (
             <>
-              <span key={`m-${key}`} style={{ color }}>{compLabel}: {formatCurrency(cut.mercado[key].p50)}</span>
-              <span key={`e-${key}`} style={{ color }}>{compLabel}: {formatCurrency(cut.empresa[key].p50)}</span>
+              <span key={`m-${key}`} style={{ color: MERCADO_COLORS[key] }}>{compLabel}: {formatCurrency(cut.mercado[key].p50)}</span>
+              <span key={`e-${key}`} style={{ color: EMPRESA_COLORS[key] }}>{compLabel}: {formatCurrency(cut.empresa[key].p50)}</span>
             </>
           ))}
           <span className="font-bold border-t border-border pt-0.5">Total: {formatCurrency(totalM)}</span>
