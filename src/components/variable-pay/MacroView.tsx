@@ -220,10 +220,10 @@ export function MacroView({ filters, onSelectType }: MacroViewProps) {
                     <p className="text-small text-muted-foreground uppercase tracking-wider">{STAT_LABELS[key]}</p>
                   </IndicatorTooltip>
                   {!isManager && (
-                    <p className="text-label-bold tabular-nums mt-xxs">{formatBRL(emp)}</p>
+                    <p className="text-label-bold tabular-nums mt-xxs text-chart-company">{formatBRL(emp)}</p>
                   )}
                   {!isManager && (
-                    <p className="text-small text-muted-foreground tabular-nums">vs {formatBRL(mkt)}</p>
+                    <p className="text-small text-chart-market tabular-nums">vs {formatBRL(mkt)} mercado</p>
                   )}
                   <p className={`text-small-bold tabular-nums ${color}`}>{formatPct(pct)}</p>
                 </div>
